@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Hướng Nghiệp AI</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:100vh;display:flex;flex-direction:column;overflow:hidden}
@@ -12,12 +11,11 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
 .header{background:#0f1219;border-bottom:1px solid #232a3a;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .header-left{display:flex;align-items:center;gap:10px}
 .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#9b8bff,#5544cc);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 0 14px rgba(124,106,255,.45);flex-shrink:0}
-.brand{font-size:15px;font-weight:800;background:linear-gradient(135deg,#a899ff,#ff90b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand{font-size:15px;font-weight:800;background:linear-gradient(135deg,#a899ff,#ff90b8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .brand-sub{font-size:8.5px;color:#60698a;letter-spacing:1.2px;text-transform:uppercase}
 .online{display:flex;align-items:center;gap:6px;background:rgba(61,255,168,.07);border:1px solid rgba(61,255,168,.2);border-radius:20px;padding:4px 12px;font-size:10.5px;color:#3dffa8;font-weight:600}
 .dot{width:6px;height:6px;border-radius:50%;background:#3dffa8;animation:pulse 2s infinite;display:inline-block}
 .main{flex:1;display:flex;overflow:hidden}
-/* Sidebar */
 .sidebar{width:380px;border-right:1px solid #232a3a;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
 .tabs{display:flex;background:#0f1219;border-bottom:1px solid #232a3a;flex-shrink:0}
 .tab{flex:1;padding:10px 0;background:none;border:none;border-bottom:2px solid transparent;color:#60698a;font-size:11.5px;cursor:pointer;transition:.2s;font-family:inherit}
@@ -49,7 +47,6 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
 .cd{flex:1;background:#0f1219;border:1px solid #232a3a;border-radius:10px;padding:8px 5px;text-align:center}
 .cd-num{font-size:20px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 .cd-lbl{font-size:8px;color:#60698a;margin-top:4px;text-transform:uppercase;letter-spacing:1px}
-/* Chat */
 .chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .chat-header{padding:11px 16px;border-bottom:1px solid #232a3a;display:flex;align-items:center;gap:10px;flex-shrink:0;background:#0f1219}
 .chat-box{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
@@ -88,16 +85,13 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
 </div>
 
 <div class="main">
-  <!-- SIDEBAR DASHBOARD -->
   <div class="sidebar">
     <div class="tabs">
       <button class="tab active" onclick="switchTab('dash')">📊 Dashboard</button>
       <button class="tab" onclick="switchTab('help')">🛠 Hỗ trợ</button>
     </div>
 
-    <!-- DASHBOARD TAB -->
     <div id="tab-dash" class="dash">
-
       <div class="block" style="--stripe:linear-gradient(90deg,#7c6aff,#ff5f8d)">
         <div class="block-title">🧠 Trạng thái cảm xúc</div>
         <div class="info-row">
@@ -113,18 +107,9 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
         <div class="pbar-wrap"><div class="pbar-top"><span>Giá trị sống</span><span id="pct-val">0%</span></div><div class="pbar"><div class="pbar-fill" id="fill-val" style="width:0%;background:#7c6aff"></div></div></div>
         <div class="pbar-wrap"><div class="pbar-top"><span>Kiểu làm việc</span><span id="pct-work">0%</span></div><div class="pbar"><div class="pbar-fill" id="fill-work" style="width:0%;background:#ff5f8d"></div></div></div>
         <div class="pbar-wrap"><div class="pbar-top"><span>Động lực sống</span><span id="pct-mot">0%</span></div><div class="pbar"><div class="pbar-fill" id="fill-mot" style="width:0%;background:#3dffa8"></div></div></div>
-        <div style="margin-top:8px">
-          <div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Giá trị sống</div>
-          <div class="pills" id="d-vals"><span class="pill pill-low">Chờ phân tích…</span></div>
-        </div>
-        <div style="margin-top:8px">
-          <div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Kiểu làm việc</div>
-          <div class="pills" id="d-work"><span class="pill pill-low">Chờ phân tích…</span></div>
-        </div>
-        <div style="margin-top:8px">
-          <div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Động lực</div>
-          <div class="pills" id="d-mot"><span class="pill pill-low">Chờ phân tích…</span></div>
-        </div>
+        <div style="margin-top:8px"><div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Giá trị sống</div><div class="pills" id="d-vals"><span class="pill pill-low">Chờ phân tích…</span></div></div>
+        <div style="margin-top:8px"><div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Kiểu làm việc</div><div class="pills" id="d-work"><span class="pill pill-low">Chờ phân tích…</span></div></div>
+        <div style="margin-top:8px"><div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Động lực</div><div class="pills" id="d-mot"><span class="pill pill-low">Chờ phân tích…</span></div></div>
       </div>
 
       <div class="block" style="--stripe:linear-gradient(90deg,#ffbe3d,#3dffa8)">
@@ -147,22 +132,12 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
 
       <div class="block" style="--stripe:linear-gradient(90deg,#7c6aff,#3dffa8)">
         <div class="block-title">🚀 Lộ trình phát triển</div>
-        <div class="road-section">
-          <div class="road-label" style="color:#7c6aff">3 tháng đầu</div>
-          <div id="d-r3"><div class="road-item" style="--c:#7c6aff">Kể ngành bạn quan tâm để mình lên lộ trình</div></div>
-        </div>
-        <div class="road-section">
-          <div class="road-label" style="color:#ffbe3d">6 tháng</div>
-          <div id="d-r6"><div class="road-item">Lộ trình sẽ cá nhân hóa theo bạn</div></div>
-        </div>
-        <div class="road-section" style="margin-bottom:0">
-          <div class="road-label" style="color:#3dffa8">1 năm</div>
-          <div id="d-r1"><div class="road-item">Mục tiêu dài hạn của bạn</div></div>
-        </div>
+        <div class="road-section"><div class="road-label" style="color:#7c6aff">3 tháng đầu</div><div id="d-r3"><div class="road-item">Kể ngành bạn quan tâm để mình lên lộ trình</div></div></div>
+        <div class="road-section"><div class="road-label" style="color:#ffbe3d">6 tháng</div><div id="d-r6"><div class="road-item">Lộ trình sẽ cá nhân hóa theo bạn</div></div></div>
+        <div class="road-section" style="margin-bottom:0"><div class="road-label" style="color:#3dffa8">1 năm</div><div id="d-r1"><div class="road-item">Mục tiêu dài hạn của bạn</div></div></div>
       </div>
     </div>
 
-    <!-- HELP TAB -->
     <div id="tab-help" class="dash" style="display:none">
       <div class="block" style="--stripe:linear-gradient(90deg,#7c6aff,#3dffa8)">
         <div class="block-title">❓ Hướng dẫn sử dụng</div>
@@ -170,7 +145,7 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
           <p>💬 <strong style="color:#e2e6f3">Chat thoải mái</strong> — kể về lo lắng, định hướng, hay điểm số của bạn</p>
           <p style="margin-top:8px">📊 <strong style="color:#e2e6f3">Dashboard</strong> tự động cập nhật khi AI phân tích được thông tin</p>
           <p style="margin-top:8px">🔒 <strong style="color:#e2e6f3">Riêng tư</strong> — không lưu, không phán xét</p>
-          <p style="margin-top:8px">⚡ <strong style="color:#e2e6f3">Server phải chạy</strong> — đảm bảo <code style="background:#232a3a;padding:2px 6px;border-radius:4px">node server.js</code> đang chạy ở port 5000</p>
+          <p style="margin-top:8px">🌐 <strong style="color:#e2e6f3">Server</strong> chạy trên Render.com — không cần chạy local</p>
         </div>
       </div>
       <div class="block" style="--stripe:linear-gradient(90deg,#ff5f8d,#ffbe3d)">
@@ -180,7 +155,6 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
     </div>
   </div>
 
-  <!-- CHAT AREA -->
   <div class="chat-area">
     <div class="chat-header">
       <div class="avatar" style="width:38px;height:38px;font-size:20px">🤖</div>
@@ -191,9 +165,9 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
     </div>
 
     <div class="chat-box" id="chat-box">
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center">
+      <div id="welcome" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center">
         <div style="font-size:36px">👋</div>
-        <div style="font-size:18px;font-weight:800;background:linear-gradient(135deg,#b0a4ff,#ff90b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Xin chào! Mình là Mentor AI</div>
+        <div style="font-size:18px;font-weight:800;background:linear-gradient(135deg,#b0a4ff,#ff90b8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Xin chào! Mình là Mentor AI</div>
         <div style="font-size:12.5px;color:#60698a;line-height:1.75">Không phán xét · Không sáo rỗng<br/>Chỉ lắng nghe và đồng hành cùng bạn 🤝</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:360px">
           <button class="sug-btn" style="border-radius:12px;padding:10px 12px;text-align:left;color:#e2e6f3" onclick="sendMsg('Mình đang rất lo về việc chọn ngành, không biết nên học gì')">😰 Lo chọn ngành</button>
@@ -224,7 +198,7 @@ body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:10
 </div>
 
 <script>
-const API = "http://localhost:5000";
+const API = "https://chabot-huong-nghiep.onrender.com";
 let history = [];
 let busy = false;
 let welcomeShown = true;
@@ -232,7 +206,7 @@ let welcomeShown = true;
 // ── Countdown ────────────────────────────────────────────────────────────────
 function updateCountdown() {
   const diff = new Date("2026-06-11T00:00:00") - new Date();
-  if (diff <= 0) { document.getElementById("cd-d").textContent = "00"; return; }
+  if (diff <= 0) { ["cd-d","cd-h","cd-m","cd-s"].forEach(id => document.getElementById(id).textContent = "00"); return; }
   const pad = n => String(n).padStart(2,"0");
   document.getElementById("cd-d").textContent = pad(Math.floor(diff/864e5));
   document.getElementById("cd-h").textContent = pad(Math.floor((diff%864e5)/36e5));
@@ -249,15 +223,17 @@ function switchTab(name) {
   document.getElementById("tab-help").style.display = name === "help" ? "block" : "none";
 }
 
-// ── Chat ─────────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────
 function ts() { return new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}); }
 
+function clearWelcome() {
+  if (!welcomeShown) return;
+  document.getElementById("welcome")?.remove();
+  welcomeShown = false;
+}
+
 function appendMsg(text, role) {
-  // Clear welcome screen on first message
-  if (welcomeShown) {
-    document.getElementById("chat-box").innerHTML = "";
-    welcomeShown = false;
-  }
+  clearWelcome();
   const box = document.getElementById("chat-box");
   const wrap = document.createElement("div");
   wrap.style.cssText = `display:flex;flex-direction:column;align-items:${role==="user"?"flex-end":"flex-start"}`;
@@ -278,14 +254,11 @@ function showError(msg) {
   const bar = document.getElementById("error-bar");
   bar.textContent = msg;
   bar.style.display = "block";
-  setTimeout(() => bar.style.display = "none", 5000);
+  setTimeout(() => bar.style.display = "none", 6000);
 }
 
-async function sendMsg(text) {
-  if (busy) return;
-  await doSend(text);
-}
-
+// ── Send ─────────────────────────────────────────────────────────────────────
+async function sendMsg(text) { if (!busy) await doSend(text); }
 async function sendChat() {
   const input = document.getElementById("chat-input");
   const text = input.value.trim();
@@ -303,7 +276,7 @@ async function doSend(text) {
   history.push({ role: "user", parts: [{ text }] });
 
   // Typing indicator
-  if (welcomeShown) { document.getElementById("chat-box").innerHTML = ""; welcomeShown = false; }
+  clearWelcome();
   const box = document.getElementById("chat-box");
   const typingWrap = document.createElement("div");
   typingWrap.style.cssText = "display:flex;align-items:flex-start";
@@ -315,14 +288,13 @@ async function doSend(text) {
   box.scrollTop = box.scrollHeight;
 
   try {
-    const res = await fetch(API + "/api/chat", {
+    const res = await fetch(API + "/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text, history: history.slice(0,-1) }),
     });
     if (!res.ok) throw new Error("Server lỗi: " + res.status);
     const data = await res.json();
-
     typingWrap.remove();
 
     const raw = data.reply || "";
@@ -333,12 +305,13 @@ async function doSend(text) {
 
     appendMsg(msgText, "ai");
     history.push({ role: "model", parts: [{ text: raw }] });
-
     if (db) applyDB(db);
 
   } catch (e) {
     typingWrap.remove();
-    showError(e instanceof TypeError ? "⚠ Không kết nối được server. Kiểm tra node server.js đã chạy chưa?" : "⚠ " + e.message);
+    showError(e instanceof TypeError
+      ? "⚠ Không kết nối được server. Server Render có thể đang khởi động (30s), thử lại nhé!"
+      : "⚠ " + e.message);
   } finally {
     busy = false;
     document.getElementById("send-btn").disabled = false;
@@ -346,25 +319,23 @@ async function doSend(text) {
   }
 }
 
-// ── Apply dashboard data ──────────────────────────────────────────────────────
+// ── Apply dashboard ───────────────────────────────────────────────────────────
 function applyDB(db) {
   if (!db) return;
   if (db.mood) document.getElementById("d-mood").textContent = db.mood;
   if (db.fear) document.getElementById("d-fear").textContent = db.fear;
   if (db.root) document.getElementById("d-root").textContent = db.root;
-
   if (db.insight) {
     const el = document.getElementById("d-insight");
     el.className = "insight-box";
     el.textContent = `"${db.insight}"`;
   }
-
-  if (db.values?.length) renderPills("d-vals", db.values);
-  if (db.work?.length)   renderPills("d-work", db.work);
-  if (db.motive?.length) renderPills("d-mot",  db.motive);
+  if (db.values?.length)  renderPills("d-vals", db.values);
+  if (db.work?.length)    renderPills("d-work", db.work);
+  if (db.motive?.length)  renderPills("d-mot",  db.motive);
 
   const vp = Math.min(100, (db.values?.length||0)*20 + (db.insight?20:0));
-  const wp = Math.min(100, (db.work?.length||0)*20 + (db.motive?.length||0)*15);
+  const wp = Math.min(100, (db.work?.length||0)*20   + (db.motive?.length||0)*15);
   const mp = Math.min(100, (db.motive?.length||0)*25);
   setPbar("val", vp); setPbar("work", wp); setPbar("mot", mp);
 
@@ -378,30 +349,26 @@ function applyDB(db) {
 }
 
 function renderPills(id, items) {
-  const el = document.getElementById(id);
-  el.innerHTML = items.map(({l,v}) => `<span class="pill pill-${v||'low'}">${l}</span>`).join("");
+  document.getElementById(id).innerHTML = items.map(({l,v}) =>
+    `<span class="pill pill-${v||'low'}">${l}</span>`).join("");
 }
-
 function setPbar(key, pct) {
   document.getElementById("fill-"+key).style.width = pct + "%";
   document.getElementById("pct-"+key).textContent = pct + "%";
 }
-
 function renderRoad(id, items, color) {
   document.getElementById(id).innerHTML = items.map(t =>
-    `<div class="road-item" style="--c:${color};color:#e2e6f3">${t}</div>`
-  ).join("");
+    `<div class="road-item" style="color:#e2e6f3;--c:${color}">${t}</div>`).join("");
 }
 
 function resetChat() {
-  history = [];
-  welcomeShown = true;
-  document.getElementById("chat-box").innerHTML = `
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center">
-      <div style="font-size:36px">👋</div>
-      <div style="font-size:18px;font-weight:800;background:linear-gradient(135deg,#b0a4ff,#ff90b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Xin chào! Mình là Mentor AI</div>
-      <div style="font-size:12.5px;color:#60698a;line-height:1.75">Không phán xét · Không sáo rỗng<br/>Chỉ lắng nghe và đồng hành cùng bạn 🤝</div>
-    </div>`;
+  history = []; welcomeShown = true;
+  const box = document.getElementById("chat-box");
+  box.innerHTML = `<div id="welcome" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center">
+    <div style="font-size:36px">👋</div>
+    <div style="font-size:18px;font-weight:800;background:linear-gradient(135deg,#b0a4ff,#ff90b8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Xin chào! Mình là Mentor AI</div>
+    <div style="font-size:12.5px;color:#60698a;line-height:1.75">Không phán xét · Không sáo rỗng<br/>Chỉ lắng nghe và đồng hành cùng bạn 🤝</div>
+  </div>`;
 }
 </script>
 </body>

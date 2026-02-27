@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyCUaagb-AKumX_IVK92z2RdOn_HOuk9nac" }); // ← Dán key thật vào đây
+const ai = new GoogleGenAI({ apiKey: "AIzaSyCUaagb-AKumX_IVK92z2RdOn_HOuk9nac" });
 
 const MODEL = "gemini-2.5-flash";
 
@@ -19,13 +19,12 @@ app.use(cors({ origin: "*", methods: ["GET","POST","OPTIONS"], allowedHeaders: [
 app.options("/{*path}", cors());
 app.use(express.json());
 
-// ── Hàm clean response ───────────────────────────────────────────────────────
 function cleanJSON(text) {
   return text.replace(/```json|```/g, "").trim();
 }
 
-// ── 1. CHATBOT ───────────────────────────────────────────────────────────────
-app.post("/api/chat", async (req, res) => {
+// ── Handler chat ─────────────────────────────────────────────────────────────
+async function handleChat(req, res) {
   try {
     const { history = [], message } = req.body;
     if (!message) return res.status(400).json({ error: "Thiếu message" });
@@ -59,9 +58,13 @@ app.post("/api/chat", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
-});
+}
 
-// ── 2. PHÂN TÍCH VĂN BẢN ────────────────────────────────────────────────────
+// ── Routes: local + Render.com ───────────────────────────────────────────────
+app.post("/api/chat", handleChat); // local: http://localhost:5000/api/chat
+app.post("/chat",     handleChat); // Render: https://chabot-huong-nghiep.onrender.com/chat
+
+// ── Phân tích văn bản ────────────────────────────────────────────────────────
 app.post("/api/analyze", async (req, res) => {
   try {
     const { text, mode = "summarize", customPrompt } = req.body;
@@ -96,5 +99,8 @@ app.post("/api/analyze", async (req, res) => {
   }
 });
 
-const PORT = 5000;
+// ── Health check ─────────────────────────────────────────────────────────────
+app.get("/", (req, res) => res.json({ status: "ok", model: MODEL }));
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ Server đang chạy tại http://localhost:${PORT}`));
