@@ -1,0 +1,14 @@
+from google import genai
+
+# dán API key vào đây
+client = genai.Client(api_key="AIzaSyC75ZP14ueFslTtEywfpyaR8-wBLhYnTYw")
+
+while True:
+    user = input("Bạn: ")
+
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        contents=user,
+    )
+
+    print("AI:", response.text)

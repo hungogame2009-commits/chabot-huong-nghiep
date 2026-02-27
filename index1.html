@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gemini Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0f1117; color: #e2e6f3; min-height: 100vh; padding: 24px; }
+    h1   { font-size: 22px; margin-bottom: 24px; background: linear-gradient(135deg, #a899ff, #ff90b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2   { font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #60698a; margin-bottom: 12px; }
+
+    .tabs   { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab    { padding: 8px 20px; border-radius: 20px; border: 1px solid #232a3a; background: #161b27; color: #60698a; cursor: pointer; font-size: 13px; transition: all .2s; }
+    .tab.active { background: #7c6aff; border-color: #7c6aff; color: #fff; }
+
+    .panel  { display: none; background: #161b27; border: 1px solid #232a3a; border-radius: 16px; padding: 20px; max-width: 720px; }
+    .panel.active { display: flex; flex-direction: column; gap: 12px; }
+
+    /* Chat */
+    #chat-box { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 4px 0; }
+    .msg       { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 13.5px; line-height: 1.6; word-break: break-word; }
+    .msg.user  { align-self: flex-end; background: linear-gradient(135deg,#5040c0,#7c6aff); color: #fff; border-radius: 16px 16px 4px 16px; }
+    .msg.ai    { align-self: flex-start; background: #1e2436; border: 1px solid #2e3850; border-radius: 16px 16px 16px 4px; }
+    .msg.typing { opacity: .6; font-style: italic; }
+
+    .row   { display: flex; gap: 8px; }
+    input, textarea, select {
+      flex: 1; background: #0f1219; border: 1px solid #2e3850; border-radius: 10px;
+      padding: 10px 14px; color: #e2e6f3; font-size: 13px; font-family: inherit; outline: none;
+      transition: border-color .2s;
+    }
+    input:focus, textarea:focus { border-color: #7c6aff; }
+    textarea { resize: vertical; min-height: 110px; }
+    select   { flex: none; width: 160px; }
+    button {
+      padding: 10px 20px; background: linear-gradient(135deg,#7c6aff,#5040c0); border: none;
+      border-radius: 10px; color: #fff; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: opacity .2s, transform .15s;
+    }
+    button:hover  { opacity: .88; transform: scale(1.04); }
+    button:active { transform: scale(.97); }
+    button:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* Analyze result */
+    #result-box { background: #0f1219; border: 1px solid #2e3850; border-radius: 10px; padding: 14px; font-size: 13px; line-height: 1.7; min-height: 60px; white-space: pre-wrap; }
+    .tag { display: inline-block; background: rgba(124,106,255,.15); border: 1px solid rgba(124,106,255,.35); color: #b0a4ff; padding: 3px 11px; border-radius: 20px; font-size: 12px; margin: 3px; }
+    .sentiment-badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 13px; }
+    .positive { background: rgba(61,255,168,.12); border: 1px solid rgba(61,255,168,.3); color: #3dffa8; }
+    .negative { background: rgba(255,95,141,.12); border: 1px solid rgba(255,95,141,.3); color: #ff5f8d; }
+    .neutral  { background: rgba(255,190,61,.12);  border: 1px solid rgba(255,190,61,.3);  color: #ffbe3d; }
+
+    .error { color: #ff5f8d; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<h1>🤖 Gemini AI Demo</h1>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('chat')">💬 Chatbot</button>
+  <button class="tab"        onclick="switchTab('analyze')">🔍 Phân tích văn bản</button>
+</div>
+
+<!-- ── CHATBOT ── -->
+<div id="panel-chat" class="panel active">
+  <h2>Chatbot hỏi đáp</h2>
+  <div id="chat-box"></div>
+  <div class="row">
+    <input id="chat-input" placeholder="Nhập câu hỏi…" onkeydown="if(event.key==='Enter')sendChat()" />
+    <button id="chat-btn" onclick="sendChat()">Gửi</button>
+  </div>
+  <span id="chat-error" class="error"></span>
+</div>
+
+<!-- ── PHÂN TÍCH VĂN BẢN ── -->
+<div id="panel-analyze" class="panel">
+  <h2>Phân tích văn bản</h2>
+  <div class="row" style="align-items:flex-start; gap:10px;">
+    <textarea id="analyze-text" placeholder="Dán văn bản cần phân tích vào đây…"></textarea>
+    <select id="analyze-mode">
+      <option value="summarize">📝 Tóm tắt</option>
+      <option value="sentiment">😊 Cảm xúc</option>
+      <option value="keywords">🏷 Từ khóa</option>
+      <option value="custom">✏️ Tùy chỉnh</option>
+    </select>
+  </div>
+  <input id="custom-prompt" placeholder="Nhập prompt tùy chỉnh…" style="display:none" />
+  <button id="analyze-btn" onclick="runAnalyze()">Phân tích</button>
+  <div id="result-box">Kết quả sẽ hiển thị ở đây…</div>
+  <span id="analyze-error" class="error"></span>
+</div>
+
+<script>
+  const API = "http://localhost:4000"; // Đổi thành URL backend thật khi deploy
+  let chatHistory = [];
+
+  // ── Tab switch ───────────────────────────────────────────────────────────
+  function switchTab(name) {
+    document.querySelectorAll(".tab").forEach((t, i) => t.classList.toggle("active", ["chat","analyze"][i] === name));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    document.getElementById(`panel-${name}`).classList.add("active");
+  }
+
+  // Toggle custom prompt input
+  document.getElementById("analyze-mode").addEventListener("change", e => {
+    document.getElementById("custom-prompt").style.display = e.target.value === "custom" ? "block" : "none";
+  });
+
+  // ── Chatbot ──────────────────────────────────────────────────────────────
+  function appendMsg(text, role) {
+    const box = document.getElementById("chat-box");
+    const div = document.createElement("div");
+    div.className = `msg ${role}`;
+    div.id = role === "typing" ? "typing-indicator" : "";
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    return div;
+  }
+
+  async function sendChat() {
+    const input = document.getElementById("chat-input");
+    const btn   = document.getElementById("chat-btn");
+    const msg   = input.value.trim();
+    if (!msg) return;
+
+    appendMsg(msg, "user");
+    input.value = "";
+    btn.disabled = true;
+    document.getElementById("chat-error").textContent = "";
+
+    const typing = appendMsg("Đang soạn…", "typing");
+
+    try {
+      const res  = await fetch(`${API}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ history: chatHistory, message: msg }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      typing.remove();
+      appendMsg(data.reply, "ai");
+      chatHistory = data.newHistory; // Lưu history cho lượt sau
+    } catch (err) {
+      typing.remove();
+      document.getElementById("chat-error").textContent = "⚠ " + err.message;
+    } finally {
+      btn.disabled = false;
+      input.focus();
+    }
+  }
+
+  // ── Phân tích văn bản ────────────────────────────────────────────────────
+  async function runAnalyze() {
+    const text   = document.getElementById("analyze-text").value.trim();
+    const mode   = document.getElementById("analyze-mode").value;
+    const custom = document.getElementById("custom-prompt").value.trim();
+    const box    = document.getElementById("result-box");
+    const btn    = document.getElementById("analyze-btn");
+    if (!text) return;
+
+    btn.disabled = true;
+    box.textContent = "Đang phân tích…";
+    document.getElementById("analyze-error").textContent = "";
+
+    try {
+      const res  = await fetch(`${API}/api/analyze`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, mode, customPrompt: custom }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      // Render kết quả theo mode
+      box.innerHTML = "";
+      if (mode === "sentiment" && typeof data.result === "object") {
+        const s = data.result;
+        const badge = document.createElement("div");
+        badge.style.marginBottom = "10px";
+        badge.innerHTML = `<span class="sentiment-badge ${s.sentiment}">${
+          { positive:"😊 Tích cực", negative:"😞 Tiêu cực", neutral:"😐 Trung lập" }[s.sentiment] || s.sentiment
+        }</span> <strong style="color:#a899ff">${s.score}/100</strong>`;
+        box.appendChild(badge);
+        const reason = document.createElement("div");
+        reason.style.color = "#a0aabb";
+        reason.textContent = s.reason;
+        box.appendChild(reason);
+      } else if (mode === "keywords" && typeof data.result === "object") {
+        (data.result.keywords || []).forEach(kw => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = kw;
+          box.appendChild(tag);
+        });
+      } else {
+        box.textContent = typeof data.result === "string" ? data.result : JSON.stringify(data.result, null, 2);
+      }
+    } catch (err) {
+      box.textContent = "";
+      document.getElementById("analyze-error").textContent = "⚠ " + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
