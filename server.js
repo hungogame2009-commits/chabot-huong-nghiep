@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyCUaagb-AKumX_IVK92z2RdOn_HOuk9nac" });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const MODEL = "gemini-2.5-flash";
 
