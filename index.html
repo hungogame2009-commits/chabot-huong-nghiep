@@ -6,380 +6,929 @@
 <title>Hướng Nghiệp AI</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#080a10;color:#e2e6f3;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#232a3a;border-radius:2px}
-.header{background:#0f1219;border-bottom:1px solid #232a3a;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.header-left{display:flex;align-items:center;gap:10px}
-.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#9b8bff,#5544cc);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 0 14px rgba(124,106,255,.45);flex-shrink:0}
-.brand{font-size:15px;font-weight:800;background:linear-gradient(135deg,#a899ff,#ff90b8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.brand-sub{font-size:8.5px;color:#60698a;letter-spacing:1.2px;text-transform:uppercase}
-.online{display:flex;align-items:center;gap:6px;background:rgba(61,255,168,.07);border:1px solid rgba(61,255,168,.2);border-radius:20px;padding:4px 12px;font-size:10.5px;color:#3dffa8;font-weight:600}
-.dot{width:6px;height:6px;border-radius:50%;background:#3dffa8;animation:pulse 2s infinite;display:inline-block}
-.main{flex:1;display:flex;overflow:hidden}
-.sidebar{width:380px;border-right:1px solid #232a3a;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
-.tabs{display:flex;background:#0f1219;border-bottom:1px solid #232a3a;flex-shrink:0}
-.tab{flex:1;padding:10px 0;background:none;border:none;border-bottom:2px solid transparent;color:#60698a;font-size:11.5px;cursor:pointer;transition:.2s;font-family:inherit}
-.tab.active{border-bottom-color:#7c6aff;color:#7c6aff;font-weight:700}
-.dash{flex:1;overflow-y:auto;padding:14px}
-.block{background:#0f1219;border:1px solid #232a3a;border-radius:14px;padding:14px;margin-bottom:12px;position:relative;overflow:hidden}
-.block::before{content:"";position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--stripe);border-radius:14px 14px 0 0}
-.block-title{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#60698a;font-weight:600;margin-bottom:12px}
-.info-row{display:flex;gap:7px;margin-bottom:10px}
-.card{background:#161b27;border:1px solid #232a3a;border-radius:10px;padding:9px 11px;flex:1;min-width:0}
-.card-label{font-size:8px;color:#60698a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.card-val{font-size:12px;font-weight:600;word-break:break-word;color:#e2e6f3}
-.pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.pill{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;display:inline-block}
-.pill-high{background:rgba(124,106,255,.16);border:1px solid rgba(124,106,255,.45);color:#b0a4ff}
-.pill-mid{background:rgba(255,95,141,.12);border:1px solid rgba(255,95,141,.38);color:#ff8fb0}
-.pill-low{background:rgba(46,54,80,.4);border:1px solid #232a3a;color:#60698a}
-.insight-box{background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(255,95,141,.07));border:1px solid rgba(124,106,255,.3);border-radius:10px;padding:11px 13px;font-size:12.5px;line-height:1.65;font-style:italic;color:#e2e6f3}
-.insight-empty{background:rgba(124,106,255,.05);border:1px dashed #232a3a;border-radius:10px;padding:10px 13px;font-size:11px;color:#2e3650;font-style:italic}
-.pbar-wrap{margin-bottom:10px}
-.pbar-top{display:flex;justify-content:space-between;font-size:10px;color:#60698a;margin-bottom:4px}
-.pbar{height:5px;background:#232a3a;border-radius:3px;overflow:hidden}
-.pbar-fill{height:100%;border-radius:3px;transition:width 1.1s ease}
-.road-section{background:#161b27;border:1px solid #232a3a;border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.road-label{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:8px}
-.road-item{font-size:12px;padding:2px 0 2px 14px;position:relative;line-height:1.5;color:#e2e6f3}
-.road-item::before{content:"→";position:absolute;left:0;font-size:10px;font-weight:700}
-.countdown{display:flex;gap:7px}
-.cd{flex:1;background:#0f1219;border:1px solid #232a3a;border-radius:10px;padding:8px 5px;text-align:center}
-.cd-num{font-size:20px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
-.cd-lbl{font-size:8px;color:#60698a;margin-top:4px;text-transform:uppercase;letter-spacing:1px}
-.chat-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.chat-header{padding:11px 16px;border-bottom:1px solid #232a3a;display:flex;align-items:center;gap:10px;flex-shrink:0;background:#0f1219}
-.chat-box{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
-.msg{max-width:80%;padding:10px 14px;border-radius:16px;font-size:13.5px;line-height:1.7;word-break:break-word;animation:slideIn .2s ease}
-.msg.user{align-self:flex-end;background:linear-gradient(135deg,#4285F4,#2a60c0);color:#fff;border-radius:16px 16px 5px 16px}
-.msg.ai{align-self:flex-start;background:#161b27;border:1px solid #232a3a;border-radius:16px 16px 16px 5px}
-.msg-time{font-size:9.5px;color:#2e3650;margin-top:4px;padding:0 4px}
-.suggestions{padding:7px 12px 0;display:flex;flex-wrap:wrap;gap:5px;border-top:1px solid #232a3a;flex-shrink:0}
-.sug-btn{background:#161b27;border:1px solid #232a3a;color:#60698a;border-radius:20px;padding:5px 13px;font-size:11px;cursor:pointer;font-family:inherit;transition:.18s}
-.sug-btn:hover{border-color:#7c6aff;color:#a89fff}
-.input-row{padding:8px 12px 12px;display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
-.chat-input{flex:1;background:#161b27;border:1px solid #2e3850;border-radius:14px;padding:9px 14px;color:#e2e6f3;font-size:13px;font-family:inherit;resize:none;outline:none;height:41px;max-height:110px;line-height:1.55;transition:border-color .2s}
-.chat-input:focus{border-color:#7c6aff}
-.send-btn{width:41px;height:41px;background:linear-gradient(135deg,#4285F4,#2a60c0);border:none;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.17s}
-.send-btn:hover{opacity:.85;transform:scale(1.06)}
-.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.error-bar{margin:6px 12px;background:rgba(255,77,109,.08);border:1px solid rgba(255,77,109,.3);border-radius:12px;padding:10px 14px;font-size:12px;color:#ff6b88;display:none}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.72)}}
+:root{
+  --bg:#080a10;--sf:#0f1219;--sf2:#161b27;--sf3:#1e2436;
+  --bd:#232a3a;--bd2:#2e3850;
+  --ac:#7c6aff;--ag:rgba(124,106,255,.15);
+  --a2:#ff5f8d;--a3:#3dffa8;--a4:#ffbe3d;
+  --tx:#e2e6f3;--mu:#60698a;--di:#2e3650;
+}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
+
+/* HEADER */
+#hdr{background:var(--sf);border-bottom:1px solid var(--bd);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 2px 14px rgba(0,0,0,.5)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-ic{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--ac),var(--a2));display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 14px rgba(124,106,255,.35)}
+.logo-t{font-size:15px;font-weight:800;background:linear-gradient(135deg,#a899ff,#ff90b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-s{font-size:8.5px;color:var(--mu);letter-spacing:1.4px;text-transform:uppercase}
+.badge{display:flex;align-items:center;gap:5px;background:rgba(61,255,168,.07);border:1px solid rgba(61,255,168,.22);border-radius:18px;padding:4px 12px;font-size:10px;color:var(--a3);font-weight:600}
+.dp{width:6px;height:6px;background:var(--a3);border-radius:50%;animation:pulse 2s infinite}
+
+/* LAYOUT */
+#layout{flex:1;display:grid;grid-template-columns:252px 1fr 320px;overflow:hidden}
+
+/* SIDEBAR */
+#sb{background:var(--sf);border-right:1px solid var(--bd);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px}
+.sb-b{background:var(--sf2);border:1px solid var(--bd);border-radius:13px;padding:12px;flex-shrink:0}
+.sb-t{font-size:8.5px;text-transform:uppercase;letter-spacing:1.8px;color:var(--mu);font-weight:700;margin-bottom:9px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sc{background:var(--sf3);border:1px solid var(--bd);border-radius:9px;padding:9px;text-align:center}
+.sn{font-size:20px;font-weight:800;line-height:1}
+.sl{font-size:8px;color:var(--mu);margin-top:3px;letter-spacing:.7px;text-transform:uppercase}
+.cm-row{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.cm-nm{font-size:10.5px;font-weight:600;width:105px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm-bg{flex:1;height:5px;background:var(--bd);border-radius:3px;overflow:hidden}
+.cm-fill{height:100%;border-radius:3px;transition:width 1.3s cubic-bezier(.22,.68,0,1.1)}
+.cm-pct{font-size:10px;font-weight:700;width:32px;text-align:right}
+.ch{background:var(--sf3);border:1px solid var(--bd);border-radius:15px;padding:4px 10px;font-size:10px;color:var(--mu);cursor:pointer;transition:all .18s;white-space:nowrap;display:inline-block}
+.ch:hover{border-color:var(--ac);color:#b0a4ff}
+.ch.hot{border-color:rgba(255,95,141,.35);color:var(--a2)}
+.sg-item{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--bd);font-size:11px}
+.sg-item:last-child{border-bottom:none}
+
+/* CHAT */
+#chat{display:flex;flex-direction:column;overflow:hidden}
+#ch-hdr{padding:10px 15px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:9px;flex-shrink:0;background:var(--sf)}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.av-ai{background:linear-gradient(135deg,var(--ac),var(--a2));box-shadow:0 0 10px rgba(124,106,255,.3)}
+.av-u{background:var(--sf3);border:1px solid var(--bd2)}
+#cb{flex:1;overflow-y:auto;padding:13px 12px 5px;display:flex;flex-direction:column;gap:9px}
+.mr{display:flex;gap:7px;align-items:flex-end;animation:slideIn .22s ease}
+.mr.u{flex-direction:row-reverse}
+.bub{max-width:83%;padding:9px 13px;border-radius:14px;font-size:12.5px;line-height:1.65;word-break:break-word}
+.bub.ai{background:var(--sf2);border:1px solid var(--bd);border-bottom-left-radius:3px}
+.bub.u{background:linear-gradient(135deg,#6052e0,#9040c0);border-bottom-right-radius:3px;color:#fff}
+.mt{font-size:9px;color:var(--di);margin-top:2px;padding:0 3px}
+.dw{display:flex;gap:7px;align-items:flex-end}
+.dots-b{padding:10px 14px;background:var(--sf2);border:1px solid var(--bd);border-radius:14px;border-bottom-left-radius:3px;display:flex;gap:4px;align-items:center}
+.dt{width:6px;height:6px;background:var(--mu);border-radius:50%;animation:bounce 1.1s infinite}
+.dt:nth-child(2){animation-delay:.2s}.dt:nth-child(3){animation-delay:.4s}
+#qr{padding:6px 11px 3px;display:flex;flex-wrap:wrap;gap:4px;border-top:1px solid var(--bd);flex-shrink:0}
+.qb{background:var(--sf2);border:1px solid var(--bd);color:var(--mu);border-radius:15px;padding:4px 11px;font-size:10px;cursor:pointer;font-family:inherit;transition:all .18s}
+.qb:hover{border-color:var(--ac);color:#a89fff}
+#ib{padding:7px 11px 11px;border-top:1px solid var(--bd);display:flex;gap:7px;align-items:flex-end;flex-shrink:0}
+#mi{flex:1;background:var(--sf2);border:1px solid var(--bd2);border-radius:11px;padding:8px 13px;color:var(--tx);font-size:12.5px;font-family:inherit;resize:none;outline:none;height:40px;max-height:110px;line-height:1.55;transition:border-color .2s,box-shadow .2s}
+#mi:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ag)}
+#mi::placeholder{color:var(--di)}
+#sbtn{width:40px;height:40px;background:linear-gradient(135deg,var(--ac),#5544c0);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(124,106,255,.4);transition:all .2s;flex-shrink:0}
+#sbtn:active{transform:scale(.91)}
+
+/* RIGHT PANEL */
+#rp{border-left:1px solid var(--bd);overflow:hidden;display:flex;flex-direction:column}
+.tnav{display:flex;background:var(--sf);border-bottom:1px solid var(--bd);flex-shrink:0}
+.tb{flex:1;padding:10px 4px;background:none;border:none;border-bottom:2px solid transparent;color:var(--mu);font-size:10.5px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+.tb.active{border-bottom-color:var(--ac);color:var(--ac);font-weight:700}
+#rc{flex:1;overflow-y:auto;padding:13px}
+
+/* TAGS */
+.tag{font-size:9px;padding:2px 7px;border-radius:9px;background:rgba(124,106,255,.11);border:1px solid rgba(124,106,255,.22);color:#a89fff;display:inline-block}
+.tag.g{background:rgba(61,255,168,.09);border-color:rgba(61,255,168,.25);color:var(--a3)}
+.tag.p{background:rgba(255,95,141,.09);border-color:rgba(255,95,141,.25);color:var(--a2)}
+.tag.y{background:rgba(255,190,61,.09);border-color:rgba(255,190,61,.25);color:var(--a4)}
+
+/* QUIZ */
+.qo{background:var(--sf3);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;font-size:11.5px;cursor:pointer;text-align:left;font-family:inherit;color:var(--tx);transition:all .2s;width:100%;display:block;margin-bottom:6px}
+.qo:hover{border-color:var(--ac);color:#c0b8ff;background:rgba(124,106,255,.08)}
+.qo.sel{border-color:var(--a3);background:rgba(61,255,168,.08);color:var(--a3)}
+.co{background:var(--sf3);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;font-size:11.5px;cursor:pointer;text-align:left;font-family:inherit;color:var(--tx);transition:all .2s;width:100%;display:block;margin-bottom:6px}
+.co:hover{border-color:var(--ac);color:#c0b8ff;background:rgba(124,106,255,.08)}
+
+/* ROADMAP */
+.rs{display:flex;gap:9px;margin-bottom:9px;position:relative}
+.rn{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;flex-shrink:0;margin-top:1px}
+.rb{flex:1;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:8px 11px}
+.rline{position:absolute;left:11px;top:25px;bottom:-9px;width:1.5px;background:linear-gradient(180deg,var(--ac),transparent)}
+
+/* MENTOR */
+.mq{background:rgba(124,106,255,.08);border:1px solid rgba(124,106,255,.22);border-radius:10px;padding:11px 13px;margin-bottom:7px;font-size:12px;line-height:1.6;cursor:pointer;transition:all .2s}
+.mq:hover{background:rgba(124,106,255,.14);border-color:var(--ac)}
+
+/* BUTTONS */
+.btn{background:linear-gradient(135deg,var(--ac),#5544c0);border:none;border-radius:9px;padding:8px 16px;font-size:11.5px;color:#fff;cursor:pointer;font-family:inherit;font-weight:700;box-shadow:0 4px 14px rgba(124,106,255,.32);transition:all .2s;display:inline-block}
+.btn:hover{transform:scale(1.04)}
+.btn2{background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:7px 14px;font-size:11px;color:var(--mu);cursor:pointer;font-family:inherit;transition:all .2s}
+.btn2:hover{border-color:var(--ac);color:var(--ac)}
+
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-7px)}}
 @keyframes slideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:700px){.sidebar{display:none}.chat-area{flex:1}}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <div class="avatar">🤖</div>
+<!-- HEADER -->
+<div id="hdr">
+  <div class="logo">
+    <div class="logo-ic">🧭</div>
+    <div><div class="logo-t">Hướng Nghiệp AI</div><div class="logo-s">Phân tích · Thử nghề · Lộ trình</div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div id="hdr-stage" style="font-size:10px;color:var(--mu);background:var(--sf2);border:1px solid var(--bd);border-radius:14px;padding:4px 11px">Chat</div>
+    <div class="badge"><div class="dp"></div>Online</div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div id="layout">
+
+<!-- ═══ SIDEBAR ═══ -->
+<div id="sb">
+  <div class="sb-b">
+    <div class="sb-t">📊 Dashboard</div>
+    <div class="sg">
+      <div class="sc"><div class="sn" id="st-exp" style="color:var(--ac)">0</div><div class="sl">Khám phá</div></div>
+      <div class="sc"><div class="sn" id="st-msg" style="color:var(--a3)">0</div><div class="sl">Tin nhắn</div></div>
+      <div class="sc"><div class="sn" id="st-quiz" style="color:var(--a4)">0%</div><div class="sl">Quiz</div></div>
+      <div class="sc"><div class="sn" id="st-ch" style="color:var(--a2)">0</div><div class="sl">Challenge</div></div>
+    </div>
+  </div>
+
+  <div class="sb-b" id="match-block" style="display:none">
+    <div class="sb-t">🎯 AI Career Match</div>
+    <div id="match-list"></div>
+    <div id="match-note" style="font-size:9.5px;color:var(--mu);margin-top:7px;line-height:1.5"></div>
+  </div>
+
+  <div class="sb-b" id="gap-block" style="display:none">
+    <div class="sb-t">🧩 Skill Gap</div>
+    <div id="gap-list"></div>
+    <div id="gap-tip" style="font-size:10.5px;color:var(--a4);margin-top:7px;line-height:1.5"></div>
+  </div>
+
+  <div class="sb-b">
+    <div class="sb-t">⚡ Hỏi nhanh</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px">
+      <div class="ch hot" onclick="qc('Nếu tôi có 1 tỷ đồng tôi muốn đầu tư vào AI')">💰 1 tỷ làm gì?</div>
+      <div class="ch" onclick="qc('Tôi thích sáng tạo và công nghệ phù hợp nghề gì?')">🎨 Sáng tạo+Tech</div>
+      <div class="ch hot" onclick="qc('Nghề AI Engineer 5 năm nữa như thế nào?')">🤖 AI 5 năm</div>
+      <div class="ch" onclick="qc('Tôi giỏi toán thích máy tính nên học ngành gì?')">📐 Giỏi toán</div>
+      <div class="ch" onclick="qc('Tôi muốn giải quyết vấn đề giáo dục trong xã hội')">🌍 Giải quyết GD</div>
+      <div class="ch" onclick="qc('Nghề Data Science lương bao nhiêu năm 2025?')">📈 Lương DS</div>
+    </div>
+  </div>
+
+  <div class="sb-b">
+    <div class="sb-t">🧭 Đã khám phá</div>
+    <div id="exp-list"><div style="font-size:10.5px;color:var(--mu)">Chưa có — bắt đầu chat!</div></div>
+  </div>
+
+  <div class="sb-b">
+    <div class="sb-t">🗺 Hành trình</div>
+    <div id="journey"><div style="font-size:10.5px;color:var(--mu)">Bắt đầu hành trình nhé!</div></div>
+  </div>
+</div>
+
+<!-- ═══ CHAT ═══ -->
+<div id="chat">
+  <div id="ch-hdr">
+    <div class="av av-ai">🧑</div>
     <div>
-      <div class="brand">Hướng Nghiệp AI</div>
-      <div class="brand-sub">Powered by Gemini 2.5 Flash</div>
+      <div style="font-weight:700;font-size:13px">Mentor AI</div>
+      <div style="font-size:9.5px;color:var(--a3);display:flex;align-items:center;gap:4px;margin-top:1px">
+        <span class="dp" style="width:5px;height:5px"></span>Chat · Quiz · Career Match · Lộ trình
+      </div>
     </div>
+    <div id="mc" style="margin-left:auto;font-size:9.5px;color:var(--mu);background:var(--sf2);border:1px solid var(--bd);border-radius:7px;padding:3px 9px">0 tin</div>
   </div>
-  <div class="online"><span class="dot"></span>Online</div>
-</div>
-
-<div class="main">
-  <div class="sidebar">
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('dash')">📊 Dashboard</button>
-      <button class="tab" onclick="switchTab('help')">🛠 Hỗ trợ</button>
-    </div>
-
-    <div id="tab-dash" class="dash">
-      <div class="block" style="--stripe:linear-gradient(90deg,#7c6aff,#ff5f8d)">
-        <div class="block-title">🧠 Trạng thái cảm xúc</div>
-        <div class="info-row">
-          <div class="card"><div class="card-label">💭 Tâm trạng</div><div class="card-val" id="d-mood">Đang lắng nghe…</div></div>
-          <div class="card"><div class="card-label">😟 Nỗi sợ</div><div class="card-val" id="d-fear">—</div></div>
-          <div class="card"><div class="card-label">🌱 Gốc rễ</div><div class="card-val" id="d-root">—</div></div>
-        </div>
-        <div id="d-insight" class="insight-empty">Tiếp tục chia sẻ để mình vẽ chân dung tính cách của bạn…</div>
-      </div>
-
-      <div class="block" style="--stripe:linear-gradient(90deg,#ff5f8d,#ffbe3d)">
-        <div class="block-title">🔍 Hồ sơ nội tâm</div>
-        <div class="pbar-wrap"><div class="pbar-top"><span>Giá trị sống</span><span id="pct-val">0%</span></div><div class="pbar"><div class="pbar-fill" id="fill-val" style="width:0%;background:#7c6aff"></div></div></div>
-        <div class="pbar-wrap"><div class="pbar-top"><span>Kiểu làm việc</span><span id="pct-work">0%</span></div><div class="pbar"><div class="pbar-fill" id="fill-work" style="width:0%;background:#ff5f8d"></div></div></div>
-        <div class="pbar-wrap"><div class="pbar-top"><span>Động lực sống</span><span id="pct-mot">0%</span></div><div class="pbar"><div class="pbar-fill" id="fill-mot" style="width:0%;background:#3dffa8"></div></div></div>
-        <div style="margin-top:8px"><div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Giá trị sống</div><div class="pills" id="d-vals"><span class="pill pill-low">Chờ phân tích…</span></div></div>
-        <div style="margin-top:8px"><div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Kiểu làm việc</div><div class="pills" id="d-work"><span class="pill pill-low">Chờ phân tích…</span></div></div>
-        <div style="margin-top:8px"><div style="font-size:10px;color:#60698a;margin-bottom:5px">🔹 Động lực</div><div class="pills" id="d-mot"><span class="pill pill-low">Chờ phân tích…</span></div></div>
-      </div>
-
-      <div class="block" style="--stripe:linear-gradient(90deg,#ffbe3d,#3dffa8)">
-        <div class="block-title">🎓 Chiến lược thi đại học</div>
-        <div class="info-row">
-          <div class="card"><div class="card-label">🎯 Mục tiêu</div><div class="card-val" id="d-uni-t">—</div></div>
-          <div class="card"><div class="card-label">🛡 An toàn</div><div class="card-val" id="d-uni-s">—</div></div>
-          <div class="card"><div class="card-label">🔄 Dự phòng</div><div class="card-val" id="d-uni-b">—</div></div>
-        </div>
-        <div style="background:rgba(255,190,61,.07);border:1px solid rgba(255,190,61,.22);border-radius:10px;padding:10px 13px">
-          <div style="font-size:9px;color:#ffbe3d;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;margin-bottom:8px">⏱ Đếm ngược THPT 2026 · 11/6/2026</div>
-          <div class="countdown">
-            <div class="cd"><div class="cd-num" id="cd-d" style="color:#ffbe3d">--</div><div class="cd-lbl">Ngày</div></div>
-            <div class="cd"><div class="cd-num" id="cd-h" style="color:#7c6aff">--</div><div class="cd-lbl">Giờ</div></div>
-            <div class="cd"><div class="cd-num" id="cd-m" style="color:#ff5f8d">--</div><div class="cd-lbl">Phút</div></div>
-            <div class="cd"><div class="cd-num" id="cd-s" style="color:#3dffa8">--</div><div class="cd-lbl">Giây</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="block" style="--stripe:linear-gradient(90deg,#7c6aff,#3dffa8)">
-        <div class="block-title">🚀 Lộ trình phát triển</div>
-        <div class="road-section"><div class="road-label" style="color:#7c6aff">3 tháng đầu</div><div id="d-r3"><div class="road-item">Kể ngành bạn quan tâm để mình lên lộ trình</div></div></div>
-        <div class="road-section"><div class="road-label" style="color:#ffbe3d">6 tháng</div><div id="d-r6"><div class="road-item">Lộ trình sẽ cá nhân hóa theo bạn</div></div></div>
-        <div class="road-section" style="margin-bottom:0"><div class="road-label" style="color:#3dffa8">1 năm</div><div id="d-r1"><div class="road-item">Mục tiêu dài hạn của bạn</div></div></div>
-      </div>
-    </div>
-
-    <div id="tab-help" class="dash" style="display:none">
-      <div class="block" style="--stripe:linear-gradient(90deg,#7c6aff,#3dffa8)">
-        <div class="block-title">❓ Hướng dẫn sử dụng</div>
-        <div style="font-size:12.5px;color:#a0aabb;line-height:1.8">
-          <p>💬 <strong style="color:#e2e6f3">Chat thoải mái</strong> — kể về lo lắng, định hướng, hay điểm số</p>
-          <p style="margin-top:8px">📊 <strong style="color:#e2e6f3">Dashboard</strong> tự động cập nhật khi AI phân tích được thông tin</p>
-          <p style="margin-top:8px">🔒 <strong style="color:#e2e6f3">Riêng tư</strong> — không lưu, không phán xét</p>
-          <p style="margin-top:8px">🌐 <strong style="color:#e2e6f3">Server</strong> chạy trên Render.com</p>
-        </div>
-      </div>
-      <div class="block" style="--stripe:linear-gradient(90deg,#ff5f8d,#ffbe3d)">
-        <div class="block-title">⚙️ Tùy chọn</div>
-        <button onclick="resetChat()" style="background:linear-gradient(135deg,#ff5f8d,#c0305a);border:none;border-radius:10px;padding:10px 16px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🔄 Bắt đầu phiên mới</button>
-      </div>
-    </div>
+  <div id="cb"></div>
+  <div id="qr">
+    <button class="qb" onclick="startQuiz()">🧠 Quiz tính cách</button>
+    <button class="qb" onclick="qc('Tôi thích lập trình và giải quyết vấn đề logic')">💻 Thích lập trình</button>
+    <button class="qb" onclick="qc('Cho tôi biết về nghề Data Scientist')">📊 Data Scientist</button>
+    <button class="qb" onclick="qc('Nếu tôi muốn trở thành AI Engineer trong 5 năm thì sao?')">🚀 Kế hoạch 5 năm</button>
+    <button class="qb" onclick="qc('Nghề nào đang hot và lương cao nhất 2025?')">💰 Nghề hot 2025</button>
   </div>
-
-  <div class="chat-area">
-    <div class="chat-header">
-      <div class="avatar" style="width:38px;height:38px;font-size:20px">🤖</div>
-      <div>
-        <div style="font-weight:700;font-size:13.5px">Mentor AI · Minh</div>
-        <div style="font-size:10px;color:#3dffa8;display:flex;align-items:center;gap:5px;margin-top:1px"><span class="dot"></span>Online · Gemini 2.5 Flash</div>
-      </div>
-    </div>
-
-    <div class="chat-box" id="chat-box">
-      <div id="welcome" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center">
-        <div style="font-size:36px">👋</div>
-        <div style="font-size:18px;font-weight:800;background:linear-gradient(135deg,#b0a4ff,#ff90b8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Xin chào! Mình là Mentor AI</div>
-        <div style="font-size:12.5px;color:#60698a;line-height:1.75">Không phán xét · Không sáo rỗng<br/>Chỉ lắng nghe và đồng hành cùng bạn 🤝</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:360px">
-          <button class="sug-btn" style="border-radius:12px;padding:10px 12px;text-align:left;color:#e2e6f3" onclick="sendMsg('Mình đang rất lo về việc chọn ngành, không biết nên học gì')">😰 Lo chọn ngành</button>
-          <button class="sug-btn" style="border-radius:12px;padding:10px 12px;text-align:left;color:#e2e6f3" onclick="sendMsg('Gia đình muốn mình học ngành khác, mình thấy áp lực lắm')">👨‍👩‍👧 Áp lực gia đình</button>
-          <button class="sug-btn" style="border-radius:12px;padding:10px 12px;text-align:left;color:#e2e6f3" onclick="sendMsg('Mình không biết mình thực sự thích gì và giỏi gì cả')">🤔 Chưa biết thích gì</button>
-          <button class="sug-btn" style="border-radius:12px;padding:10px 12px;text-align:left;color:#e2e6f3" onclick="sendMsg('Điểm mình chưa đủ vào trường mơ ước, phải làm sao?')">📉 Lo điểm thi</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="error-bar" class="error-bar"></div>
-
-    <div class="suggestions">
-      <button class="sug-btn" onclick="sendMsg('Mình đang rất lo về việc chọn ngành, không biết nên học gì')">😰 Lo chọn ngành</button>
-      <button class="sug-btn" onclick="sendMsg('Gia đình muốn mình học ngành khác, mình thấy áp lực lắm')">👨‍👩‍👧 Áp lực gia đình</button>
-      <button class="sug-btn" onclick="sendMsg('Mình không biết mình thực sự thích gì và giỏi gì cả')">🤔 Chưa biết thích gì</button>
-      <button class="sug-btn" onclick="sendMsg('Điểm mình chưa đủ vào trường mơ ước, phải làm sao?')">📉 Lo điểm thi</button>
-    </div>
-
-    <div class="input-row">
-      <textarea id="chat-input" class="chat-input" placeholder="Tâm sự thoải mái nhé…" rows="1"
-        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea>
-      <button class="send-btn" id="send-btn" onclick="sendChat()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
-    </div>
+  <div id="ib">
+    <textarea id="mi" placeholder="Hỏi về nghề, sở thích, lộ trình… 💬" rows="1"></textarea>
+    <button id="sbtn" onclick="sendMsg()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
   </div>
 </div>
+
+<!-- ═══ RIGHT PANEL ═══ -->
+<div id="rp">
+  <div class="tnav">
+    <button class="tb active" id="t-explore" onclick="setTab('explore')">🔎 Khám phá</button>
+    <button class="tb" id="t-tryit"   onclick="setTab('tryit')">🧪 Trải nghiệm</button>
+    <button class="tb" id="t-roadmap" onclick="setTab('roadmap')">🚀 Lộ trình</button>
+    <button class="tb" id="t-mentor"  onclick="setTab('mentor')">🧑‍🚀 Mentor</button>
+  </div>
+  <div id="rc">
+    <div id="tc-explore"></div>
+    <div id="tc-tryit"   style="display:none"></div>
+    <div id="tc-roadmap" style="display:none"></div>
+    <div id="tc-mentor"  style="display:none"></div>
+  </div>
+</div>
+
+</div><!-- end layout -->
 
 <script>
-const API = "https://chabot-huong-nghiep.onrender.com";
-let chatHistory = [];
-let busy = false;
-let welcomeShown = true;
+/* ════════════════════════════════════
+   DATA
+════════════════════════════════════ */
+var CAREERS = [
+  {id:"web", name:"Lập trình Web", icon:"💻", cat:"Công nghệ",
+   col:"linear-gradient(135deg,#4f46e5,#7c3aed)",
+   tags:["Frontend","Backend","Fullstack"], salary:"15–50tr", demand:"Rất cao", growth:95, baseMatch:78,
+   desc:"Xây dựng website và ứng dụng web — nghề có nhu cầu tuyển dụng lớn nhất thị trường IT hiện nay.",
+   skills:[{n:"HTML/CSS",h:true},{n:"JavaScript",h:false},{n:"React/Vue",h:false},{n:"Node.js",h:false},{n:"Database",h:false}],
+   keywords:["lập trình","code","web","frontend","backend","javascript","html","css","fullstack"],
+   day:[
+     {t:"8:30", task:"Review pull request", desc:"Kiểm tra code đồng đội, viết comment feedback"},
+     {t:"9:30", task:"Fix bug production",  desc:"Debug lỗi đang ảnh hưởng 1000 user"},
+     {t:"11:00",task:"Build new feature",   desc:"Viết component React cho tính năng mới"},
+     {t:"14:00",task:"Team standup",        desc:"Cập nhật tiến độ sprint, unblock blockers"},
+     {t:"15:30",task:"Code review + deploy",desc:"Merge PR, deploy staging, test E2E"},
+   ],
+   practice:[
+     {n:"freeCodeCamp", d:"Học HTML/CSS/JS miễn phí, có chứng chỉ", ic:"🆓", url:"https://freecodecamp.org"},
+     {n:"CodePen",       d:"Viết HTML/CSS/JS và xem kết quả ngay",   ic:"🖊", url:"https://codepen.io"},
+     {n:"The Odin Project",d:"Lộ trình fullstack miễn phí cực tốt",  ic:"⚔", url:"https://theodinproject.com"},
+   ],
+   challenge:{q:"Bạn cần tạo button đổi màu nền trang khi click. Cách nào đúng?",
+     opts:["JavaScript: document.body.style.background = 'blue'","Viết CSS animation tự chạy","Dùng PHP ở server side","Dùng Photoshop chỉnh ảnh nền"],
+     correct:0, explain:"Đúng! DOM manipulation là kỹ năng cốt lõi của Web Dev. Bạn có tư duy Frontend tự nhiên 🎯"},
+   roadmap:[{n:"HTML & CSS cơ bản",d:"Layout, Flexbox, Grid — 2 tuần",c:"#7c6aff"},{n:"JavaScript ES6+",d:"DOM, fetch, async/await — 4 tuần",c:"#ffbe3d"},{n:"React hoặc Vue",d:"Component, state, routing — 6 tuần",c:"#ff5f8d"},{n:"Backend Node.js",d:"REST API, database — 6 tuần",c:"#3dffa8"},{n:"Deploy & DevOps",d:"CI/CD, Docker, cloud — 3 tuần",c:"#7c6aff"}],
+   future:[{y:"2024",v:72,l:"Cao"},{y:"2025",v:80,l:"Rất cao"},{y:"2026",v:85,l:"Cực cao"},{y:"2028",v:88,l:"Cực cao"},{y:"2030",v:90,l:"Thiếu nhân lực"}]},
 
-// ── Countdown ────────────────────────────────────────────────────────────────
-function updateCountdown() {
-  const diff = new Date("2026-06-11T00:00:00") - new Date();
-  if (diff <= 0) { ["cd-d","cd-h","cd-m","cd-s"].forEach(id => document.getElementById(id).textContent = "00"); return; }
-  const pad = n => String(n).padStart(2,"0");
-  document.getElementById("cd-d").textContent = pad(Math.floor(diff/864e5));
-  document.getElementById("cd-h").textContent = pad(Math.floor((diff%864e5)/36e5));
-  document.getElementById("cd-m").textContent = pad(Math.floor((diff%36e5)/6e4));
-  document.getElementById("cd-s").textContent = pad(Math.floor((diff%6e4)/1e3));
+  {id:"ux", name:"UX/UI Design", icon:"🎨", cat:"Thiết kế",
+   col:"linear-gradient(135deg,#ec4899,#f97316)",
+   tags:["Figma","Research","Prototype"], salary:"12–40tr", demand:"Cao", growth:88, baseMatch:71,
+   desc:"Thiết kế giao diện đẹp và trải nghiệm người dùng mượt mà — cầu nối giữa con người và công nghệ.",
+   skills:[{n:"Figma",h:false},{n:"User Research",h:false},{n:"Prototyping",h:false},{n:"Typography",h:false},{n:"Design System",h:false}],
+   keywords:["thiết kế","design","ux","ui","figma","giao diện","sáng tạo","vẽ","đồ họa"],
+   day:[
+     {t:"9:00", task:"User research review", desc:"Phân tích kết quả phỏng vấn 10 user tuần trước"},
+     {t:"10:30",task:"Wireframing",          desc:"Sketch layout cho 3 màn hình mới trên Figma"},
+     {t:"13:30",task:"Design system update", desc:"Cập nhật component library, viết docs"},
+     {t:"15:00",task:"Usability testing",    desc:"Chạy test session với 3 user thật"},
+     {t:"16:30",task:"Design review",        desc:"Present design cho Product & Dev team"},
+   ],
+   practice:[
+     {n:"Figma",          d:"Tool thiết kế UI/UX #1, miễn phí",       ic:"🎨", url:"https://figma.com"},
+     {n:"Dribbble",       d:"Xem portfolio design, tìm cảm hứng",     ic:"🏀", url:"https://dribbble.com"},
+     {n:"Google UX Cert", d:"Khóa UX chính thức từ Google, miễn phí", ic:"🎓", url:"https://grow.google/certificates/ux-design/"},
+   ],
+   challenge:{q:"Thiết kế app học tập cho học sinh THPT. Bạn sẽ ưu tiên điều gì nhất?",
+     opts:["Giao diện đơn giản — 1 nút = 1 hành động rõ ràng","Nhồi nhiều tính năng vào 1 màn hình","Dùng nhiều màu sặc sỡ để thu hút","Thêm animation phức tạp trông xịn hơn"],
+     correct:0, explain:"Chính xác! 'Less is more' là nguyên lý nền tảng UX. Đơn giản = trải nghiệm tốt. Tư duy của bạn rất UX Designer! 🎨"},
+   roadmap:[{n:"Nguyên lý thiết kế",d:"Color, Typography, Layout — 1 tuần",c:"#ff5f8d"},{n:"Figma thành thạo",d:"Components, Auto Layout, Prototype — 3 tuần",c:"#7c6aff"},{n:"User Research",d:"Interview, survey, usability test — 2 tuần",c:"#ffbe3d"},{n:"Case Study",d:"Giải 2 bài toán thực từ đầu đến cuối",c:"#3dffa8"},{n:"Portfolio & Internship",d:"3 case study + xin thực tập",c:"#7c6aff"}],
+   future:[{y:"2024",v:68,l:"Cao"},{y:"2025",v:75,l:"Cao"},{y:"2026",v:80,l:"Rất cao"},{y:"2028",v:82,l:"Rất cao"},{y:"2030",v:85,l:"Thiếu nhân lực"}]},
+
+  {id:"data", name:"Data Science", icon:"📊", cat:"Dữ liệu",
+   col:"linear-gradient(135deg,#3b82f6,#06b6d4)",
+   tags:["Python","SQL","Machine Learning"], salary:"18–60tr", demand:"Rất cao", growth:97, baseMatch:74,
+   desc:"Phân tích dữ liệu, xây mô hình ML để đưa ra dự đoán và insight giúp doanh nghiệp ra quyết định tốt hơn.",
+   skills:[{n:"Python",h:false},{n:"SQL",h:false},{n:"Statistics",h:false},{n:"Machine Learning",h:false},{n:"Visualization",h:false}],
+   keywords:["data","dữ liệu","phân tích","machine learning","python","sql","thống kê","toán","số liệu"],
+   day:[
+     {t:"8:30", task:"Nhận dataset mới",    desc:"1.2M rows hành vi người dùng từ team Product"},
+     {t:"9:30", task:"Exploratory Analysis",desc:"Pandas profiling, tìm missing values, outliers"},
+     {t:"11:00",task:"Feature engineering", desc:"Tạo biến mới từ raw data cho model"},
+     {t:"14:00",task:"Train & validate",    desc:"XGBoost dự đoán churn, tune hyperparameters"},
+     {t:"16:00",task:"Present kết quả",     desc:"Dashboard Tableau + giải thích business impact"},
+   ],
+   practice:[
+     {n:"Kaggle",       d:"Dataset thật + Python notebook miễn phí", ic:"🏆", url:"https://kaggle.com"},
+     {n:"Google Colab", d:"Chạy Python/ML trên cloud miễn phí",      ic:"☁",  url:"https://colab.research.google.com"},
+     {n:"DataCamp",     d:"Data Science tương tác, có bài tập thực",  ic:"📚", url:"https://datacamp.com"},
+   ],
+   challenge:{q:"Doanh thu theo tháng:\n📅 Jan: 100tr &nbsp; Feb: 120tr &nbsp; Mar: 90tr &nbsp; Apr: 135tr\n\nTháng nào có tăng trưởng % cao nhất so với tháng trước?",
+     opts:["Feb (+20%) — tăng 20tr từ 100tr","Apr (+50%) — tăng 45tr từ 90tr","Mar (–25%) — giảm nhiều nhất","Jan — tháng đầu tiên"],
+     correct:1, explain:"Đúng! Apr tăng 50% (90→135tr). Tư duy % thay vì giá trị tuyệt đối — đây chính là Data Analyst mindset! 📊"},
+   roadmap:[{n:"Python cơ bản",d:"Cú pháp, list, dict, hàm — 2 tuần",c:"#3dffa8"},{n:"Pandas & NumPy",d:"Xử lý dataframe, ma trận — 2 tuần",c:"#7c6aff"},{n:"Statistics",d:"Probability, hypothesis testing — 2 tuần",c:"#ffbe3d"},{n:"Machine Learning",d:"Scikit-learn, regression, classification — 4 tuần",c:"#ff5f8d"},{n:"Project Kaggle",d:"Competition thật + xây portfolio",c:"#3dffa8"}],
+   future:[{y:"2024",v:80,l:"Rất cao"},{y:"2025",v:88,l:"Rất cao"},{y:"2026",v:93,l:"Cực cao"},{y:"2028",v:95,l:"Cực cao"},{y:"2030",v:97,l:"Thiếu trầm trọng"}]},
+
+  {id:"mkt", name:"Digital Marketing", icon:"📣", cat:"Marketing",
+   col:"linear-gradient(135deg,#f59e0b,#ef4444)",
+   tags:["SEO","Google Ads","Content"], salary:"10–35tr", demand:"Cao", growth:82, baseMatch:66,
+   desc:"Quảng bá thương hiệu online, tăng traffic và chuyển đổi khách hàng — kết hợp sáng tạo và dữ liệu.",
+   skills:[{n:"SEO",h:false},{n:"Google Ads",h:false},{n:"Content Writing",h:false},{n:"Analytics",h:false},{n:"Social Media",h:false}],
+   keywords:["marketing","quảng cáo","seo","content","social media","kinh doanh","bán hàng","truyền thông"],
+   day:[
+     {t:"8:30", task:"Check analytics",    desc:"Dashboard Google Analytics, xem traffic hôm qua"},
+     {t:"9:30", task:"Optimize ads",       desc:"Adjust bid, pause từ khóa CPC cao, A/B test"},
+     {t:"11:00",task:"Content creation",   desc:"Viết 2 bài SEO blog + lên plan social tuần"},
+     {t:"14:00",task:"Email campaign",     desc:"Segment list, viết email nurturing cho leads mới"},
+     {t:"16:00",task:"Weekly report",      desc:"Tổng hợp KPI: CTR, CPA, ROAS cho client"},
+   ],
+   practice:[
+     {n:"Google Skillshop", d:"Google Ads & Analytics cert miễn phí", ic:"🎓", url:"https://skillshop.google.com"},
+     {n:"HubSpot Academy",  d:"Marketing, SEO, CRM free + chứng chỉ", ic:"🏫", url:"https://academy.hubspot.com"},
+     {n:"Meta Blueprint",   d:"Facebook/Instagram Ads miễn phí",       ic:"📘", url:"https://www.facebook.com/business/learn"},
+   ],
+   challenge:{q:"CTR campaign hiện tại là 1.2%, industry benchmark là 2.5%. Bạn làm gì TRƯỚC TIÊN?",
+     opts:["A/B test headline và ad copy mới","Tăng ngân sách lên gấp đôi","Thay đổi target audience hoàn toàn","Dừng campaign, làm lại từ đầu"],
+     correct:0, explain:"Đúng! A/B test là cách data-driven nhất. Tăng budget khi CTR thấp = đốt tiền vô ích. Tư duy Marketing của bạn rất tốt! 📣"},
+   roadmap:[{n:"Digital Marketing cơ bản",d:"Channels, funnel, KPI — 1 tuần",c:"#ffbe3d"},{n:"SEO & Content",d:"Keyword research, on-page — 3 tuần",c:"#7c6aff"},{n:"Paid Ads",d:"Google Ads, Facebook Ads — 3 tuần",c:"#ff5f8d"},{n:"Analytics & Data",d:"GA4, tracking, attribution — 2 tuần",c:"#3dffa8"},{n:"Thực chiến",d:"Chạy campaign ngân sách thật",c:"#ffbe3d"}],
+   future:[{y:"2024",v:70,l:"Cao"},{y:"2025",v:75,l:"Cao"},{y:"2026",v:78,l:"Rất cao"},{y:"2028",v:80,l:"Rất cao"},{y:"2030",v:82,l:"Tăng ổn định"}]},
+
+  {id:"ai", name:"AI Engineer", icon:"🤖", cat:"AI/ML",
+   col:"linear-gradient(135deg,#7c3aed,#2563eb)",
+   tags:["LLM","Deep Learning","MLOps"], salary:"25–80tr", demand:"Cực cao", growth:99, baseMatch:70,
+   desc:"Xây dựng hệ thống AI thực tế — từ fine-tune LLM đến deploy model vào sản phẩm triệu người dùng.",
+   skills:[{n:"Python",h:false},{n:"Deep Learning",h:false},{n:"LLM/Transformers",h:false},{n:"MLOps",h:false},{n:"Math/Statistics",h:false}],
+   keywords:["ai","trí tuệ nhân tạo","machine learning","deep learning","llm","chatbot","nlp","neural"],
+   day:[
+     {t:"9:00", task:"Literature review",   desc:"Đọc 2 paper mới trên ArXiv về RAG optimization"},
+     {t:"10:30",task:"Fine-tune LLM",       desc:"Fine-tune Llama 3 với domain-specific data công ty"},
+     {t:"13:30",task:"Experiment tracking", desc:"MLflow: log metrics, compare runs, chọn best model"},
+     {t:"15:00",task:"Deploy model",        desc:"Docker container, deploy lên AWS SageMaker"},
+     {t:"16:30",task:"Monitor & iterate",   desc:"Check latency, accuracy drift, lên kế hoạch v2"},
+   ],
+   practice:[
+     {n:"Teachable Machine", d:"Tạo AI model không cần code trong 5 phút", ic:"🤖", url:"https://teachablemachine.withgoogle.com"},
+     {n:"Hugging Face",      d:"Thử các model AI mới nhất miễn phí",       ic:"🤗", url:"https://huggingface.co"},
+     {n:"Fast.ai",           d:"Deep Learning top-down, miễn phí",         ic:"⚡", url:"https://course.fast.ai"},
+   ],
+   challenge:{q:"Model AI của bạn đạt accuracy 95% trên test set nhưng khi deploy thật chỉ đạt 72%. Nguyên nhân chính là gì?",
+     opts:["Data leakage — test data bị rò rỉ vào training","Model quá tốt nên không có vấn đề gì","Cần GPU mạnh hơn để chạy","Code deploy bị lỗi syntax"],
+     correct:0, explain:"Chính xác! Data leakage / distribution shift là vấn đề kinh điển trong ML. Bạn có tư duy AI Engineer thật sự 🤖"},
+   roadmap:[{n:"Python & Math cơ bản",d:"NumPy, linear algebra, xác suất — 3 tuần",c:"#7c6aff"},{n:"Machine Learning",d:"Scikit-learn, supervised/unsupervised — 4 tuần",c:"#ffbe3d"},{n:"Deep Learning",d:"PyTorch, CNN, RNN, Transformer — 6 tuần",c:"#ff5f8d"},{n:"LLM & GenAI",d:"Fine-tuning, RAG, prompt engineering — 4 tuần",c:"#3dffa8"},{n:"MLOps & Deploy",d:"Docker, CI/CD, cloud platform — 3 tuần",c:"#7c6aff"}],
+   future:[{y:"2024",v:88,l:"Cực cao"},{y:"2025",v:93,l:"Cực cao"},{y:"2026",v:97,l:"Thiếu nhân lực"},{y:"2028",v:99,l:"Thiếu trầm trọng"},{y:"2030",v:100,l:"Khan hiếm nhất"}]},
+
+  {id:"fin", name:"Tài chính / FinTech", icon:"💹", cat:"Tài chính",
+   col:"linear-gradient(135deg,#10b981,#3b82f6)",
+   tags:["Excel","Python","Investment"], salary:"15–55tr", demand:"Cao", growth:85, baseMatch:65,
+   desc:"Quản lý tài chính, phân tích đầu tư, xây dựng sản phẩm FinTech — kết hợp tài chính và công nghệ.",
+   skills:[{n:"Excel/Sheets",h:true},{n:"Financial Modeling",h:false},{n:"Python Finance",h:false},{n:"Investment Analysis",h:false},{n:"Risk Management",h:false}],
+   keywords:["tài chính","finance","đầu tư","chứng khoán","kế toán","ngân hàng","fintech","tiền","kinh tế"],
+   day:[
+     {t:"8:30", task:"Morning market check", desc:"Review overnight news, portfolio P&L, macro events"},
+     {t:"9:30", task:"Financial modeling",   desc:"Cập nhật DCF model cho công ty sắp IPO"},
+     {t:"11:00",task:"Risk analysis",        desc:"VaR calculation, stress test danh mục đầu tư"},
+     {t:"14:00",task:"Client meeting",       desc:"Trình bày investment thesis cho institutional client"},
+     {t:"16:00",task:"Research report",      desc:"Viết equity research note 5 trang về công ty target"},
+   ],
+   practice:[
+     {n:"Investopedia Sim",  d:"Đầu tư chứng khoán ảo với 100,000$ giả",  ic:"📈", url:"https://www.investopedia.com/simulator/"},
+     {n:"Khan Academy",      d:"Tài chính cá nhân & đầu tư miễn phí",     ic:"🎓", url:"https://khanacademy.org/economics-finance-domain"},
+     {n:"Yahoo Finance",     d:"Theo dõi thị trường chứng khoán thực tế",  ic:"💰", url:"https://finance.yahoo.com"},
+   ],
+   challenge:{q:"Cổ phiếu A: P/E = 8, tăng trưởng EPS 25%/năm. Cổ phiếu B: P/E = 25, tăng trưởng EPS 5%/năm.\n\nCái nào rẻ hơn theo chỉ số PEG ratio?",
+     opts:["A (PEG = 0.32) — rẻ so với tốc độ tăng trưởng","B (P/E thấp hơn nên rẻ hơn)","Cả hai bằng nhau","Cần thêm thông tin mới biết được"],
+     correct:0, explain:"Đúng! PEG = P/E ÷ Growth. A = 0.32, B = 5.0. Đây là tư duy value investing chuẩn của Financial Analyst 💹"},
+   roadmap:[{n:"Tài chính cơ bản",d:"P&L, balance sheet, DCF — 2 tuần",c:"#3dffa8"},{n:"Excel Financial Model",d:"DCF, LBO, 3-statement — 3 tuần",c:"#7c6aff"},{n:"Investment Analysis",d:"Equity, fixed income, portfolio — 3 tuần",c:"#ffbe3d"},{n:"Python for Finance",d:"yfinance, backtest, quant strategies — 4 tuần",c:"#ff5f8d"},{n:"CFA Level 1",d:"Lộ trình chứng chỉ quốc tế",c:"#3dffa8"}],
+   future:[{y:"2024",v:72,l:"Cao"},{y:"2025",v:78,l:"Cao"},{y:"2026",v:82,l:"Rất cao"},{y:"2028",v:85,l:"Rất cao"},{y:"2030",v:88,l:"FinTech bùng nổ"}]},
+];
+
+var QUIZ_Q = [
+  {q:"Bạn thích làm việc kiểu nào nhất?", opts:["Sáng tạo, tự do không giới hạn","Phân tích số liệu, logic chặt chẽ","Giao tiếp, thuyết phục, kết nối","Xây dựng hệ thống kỹ thuật phức tạp"]},
+  {q:"Nếu có 1 tỷ đồng, bạn muốn làm gì?", opts:["Mở studio sáng tạo / thương hiệu","Đầu tư chứng khoán hoặc crypto","Xây startup marketing agency","Làm tech startup hoặc AI product"]},
+  {q:"Bạn muốn giải quyết vấn đề xã hội nào?", opts:["Làm đẹp thế giới bằng design & nghệ thuật","Dùng data để ra quyết định tốt hơn","Kết nối doanh nghiệp với khách hàng","Tự động hóa công việc bằng AI"]},
+  {q:"Môn học bạn thích nhất?", opts:["Mỹ thuật / Văn học / Ngoại ngữ","Toán / Xác suất / Thống kê","Địa lý / Kinh tế / GDCD","Tin học / Vật lý / Hóa học"]},
+  {q:"Bạn giải quyết vấn đề bằng cách nào?", opts:["Dùng trực giác và cảm xúc sáng tạo","Tìm công thức, quy luật, pattern","Hỏi nhiều người, thu thập ý kiến","Thử nghiệm từng bước, debug, iterate"]},
+  {q:"5 năm nữa bạn muốn là ai?", opts:["Creative Director / Brand Designer","Data Scientist / Researcher","CMO / Growth Hacker / Founder","CTO / AI Lead / Senior Engineer"]},
+  {q:"Khi rảnh bạn thường làm gì?", opts:["Vẽ, chụp ảnh, làm video","Đọc sách khoa học, giải đố logic","Lướt trend, xem content marketing","Lập trình side project, học tech mới"]},
+  {q:"Bạn tự đánh giá mình là người?", opts:["Nhạy cảm, giàu cảm xúc, thẩm mỹ tốt","Cẩn thận, tỉ mỉ, thích con số","Hướng ngoại, nói nhiều, thích gặp gỡ","Kiên nhẫn, tập trung, thích giải quyết bug"]},
+];
+
+var MENTOR_QS = [
+  "Nếu bạn có 1 tỷ đồng, bạn muốn đầu tư vào lĩnh vực nào và tại sao?",
+  "Vấn đề nào trong xã hội bạn muốn giải quyết nhất bằng nghề của mình?",
+  "10 năm nữa, bạn muốn mọi người nhớ đến bạn là người đã làm gì?",
+  "Bạn cảm thấy 'flow' — quên cả thời gian — khi làm việc gì?",
+  "Điều gì khiến bạn tức giận nhất khi thấy trong thế giới này?",
+  "Nếu được làm việc miễn phí 1 ngày tại bất kỳ công ty nào, bạn chọn ai?",
+  "Bạn giỏi nhất điều gì mà bạn bè thường nhờ bạn giúp?",
+  "Học xong đại học, bạn muốn làm gì ngay lập tức?",
+];
+
+var SYSTEM = `Bạn là mentor hướng nghiệp 27 tuổi, nói tiếng Việt tự nhiên như bạn bè, không sáo rỗng.
+
+Mỗi khi user hỏi về một nghề cụ thể hoặc bạn gợi ý một nghề, BẮT BUỘC trả lời đủ 6 phần sau trong MỘT tin nhắn duy nhất:
+
+📌 **1. Nghề này là gì**
+[Giải thích ngắn 2-3 câu: làm gì, cho ai, tạo ra giá trị gì]
+
+🕒 **2. Một ngày làm việc**
+8:30 — [task cụ thể]
+10:00 — [task]
+13:30 — [task]
+16:00 — [task]
+
+🚀 **3. Thử nghề ngay (miễn phí)**
+• [Nền tảng 1] → [mô tả ngắn]
+• [Nền tảng 2] → [mô tả ngắn]
+• [Nền tảng 3] → [mô tả ngắn]
+
+🧪 **4. Mini Challenge**
+[Đưa ra 1 bài toán/tình huống nhỏ thực tế của nghề đó và hỏi user trả lời ngay]
+
+🧭 **5. Lộ trình học**
+1️⃣ [Bước 1] — [thời gian]
+2️⃣ [Bước 2]
+3️⃣ [Bước 3]
+4️⃣ [Bước 4]
+5️⃣ [Bước 5]
+
+📈 **6. Tương lai nghề**
+Nhu cầu [nghề] tại Việt Nam:
+• 2024: [mức] — lương [range triệu/tháng]
+• 2026: [mức]
+• 2030: [dự báo]
+
+---
+Khi user nói sở thích / giá trị sống / "nếu có 1 tỷ" → suy ra nghề rồi trả đủ 6 phần.
+Khi câu hỏi chung / tâm sự / quiz → trả lời tự nhiên, KHÔNG cần 6 phần.
+Luôn kết thúc bằng 1 câu hỏi tiếp tục cuộc trò chuyện.`;
+
+/* ════════════════════════════════════
+   STATE
+════════════════════════════════════ */
+var hist = [], msgCnt = 0, explored = new Set(), chalCnt = 0;
+var quizAs = [], qCur = 0, quizDone = false;
+var matchData = {}, busy = false;
+var journeySteps = [];
+var exploreC = 'data', tryitC = 'data', tryitDone = false, roadmapC = 'ai';
+
+/* ════════════════════════════════════
+   HELPERS
+════════════════════════════════════ */
+function $(id){ return document.getElementById(id); }
+function ts(){ return new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}); }
+function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmt(t){
+  return esc(t)
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'• $1')
+    .replace(/\n/g,'<br>');
 }
-updateCountdown();
-setInterval(updateCountdown, 1000);
 
-// ── Tab ──────────────────────────────────────────────────────────────────────
-function switchTab(name) {
-  document.querySelectorAll(".tab").forEach((t,i) => t.classList.toggle("active", ["dash","help"][i] === name));
-  document.getElementById("tab-dash").style.display = name === "dash" ? "block" : "none";
-  document.getElementById("tab-help").style.display = name === "help" ? "block" : "none";
-}
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-function ts() { return new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}); }
-
-function clearWelcome() {
-  if (!welcomeShown) return;
-  document.getElementById("welcome")?.remove();
-  welcomeShown = false;
-}
-
-function appendMsg(text, role) {
-  clearWelcome();
-  const box = document.getElementById("chat-box");
-  const wrap = document.createElement("div");
-  wrap.style.cssText = `display:flex;flex-direction:column;align-items:${role==="user"?"flex-end":"flex-start"}`;
-  const msg = document.createElement("div");
-  msg.className = "msg " + role;
-  msg.textContent = text;
-  const time = document.createElement("div");
-  time.className = "msg-time";
-  time.textContent = ts();
-  wrap.appendChild(msg);
-  wrap.appendChild(time);
-  box.appendChild(wrap);
+/* ════════════════════════════════════
+   CHAT
+════════════════════════════════════ */
+function appendMsg(role, html, time){
+  var box = $('cb');
+  var row = document.createElement('div');
+  row.className = 'mr' + (role==='user' ? ' u' : '');
+  var avAI = '<div class="av av-ai">🧑</div>';
+  var avU  = '<div class="av av-u">🙋</div>';
+  row.innerHTML = (role==='ai' ? avAI : '')
+    + '<div><div class="bub ' + (role==='ai'?'ai':'u') + '">' + html + '</div>'
+    + '<div class="mt">' + time + '</div></div>'
+    + (role==='user' ? avU : '');
+  box.appendChild(row);
   box.scrollTop = box.scrollHeight;
-  return msg;
 }
 
-function showError(msg) {
-  const bar = document.getElementById("error-bar");
-  bar.textContent = msg;
-  bar.style.display = "block";
-  setTimeout(() => bar.style.display = "none", 6000);
+function showDots(){
+  var b = $('cb');
+  var d = document.createElement('div');
+  d.className = 'dw'; d.id = 'tdots';
+  d.innerHTML = '<div class="av av-ai">🧑</div><div class="dots-b"><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>';
+  b.appendChild(d); b.scrollTop = b.scrollHeight;
 }
+function removeDots(){ var d=$('tdots'); if(d) d.remove(); }
 
-// ── Parse JSON an toàn ───────────────────────────────────────────────────────
-function safeParseJSON(raw) {
-  if (!raw) return null;
-  // Thử parse trực tiếp
-  try { return JSON.parse(raw); } catch {}
-  // Thử tìm JSON trong string
-  const s = raw.indexOf("{"), e = raw.lastIndexOf("}");
-  if (s >= 0 && e > s) {
-    try { return JSON.parse(raw.slice(s, e+1)); } catch {}
-  }
-  return null;
-}
-
-// ── Send ─────────────────────────────────────────────────────────────────────
-async function sendMsg(text) { if (!busy) await doSend(text); }
-async function sendChat() {
-  const input = document.getElementById("chat-input");
-  const text = input.value.trim();
-  if (!text || busy) return;
-  input.value = "";
-  await doSend(text);
-}
-
-async function doSend(text) {
+function sendMsg(){
+  if(busy) return;
+  var inp = $('mi'), text = inp.value.trim();
+  if(!text) return;
+  inp.value = '';
+  appendMsg('user', esc(text), ts());
+  msgCnt++;
+  hist.push({role:'user', content:text});
+  detectFromText(text);
+  addJourney('chat', '💬 ' + text.slice(0,28) + (text.length>28?'…':''));
+  updateStats();
+  showDots();
   busy = true;
-  document.getElementById("send-btn").disabled = true;
-  document.getElementById("error-bar").style.display = "none";
-
-  appendMsg(text, "user");
-  chatHistory.push({ role: "user", parts: [{ text }] });
-
-  // Typing indicator
-  clearWelcome();
-  const box = document.getElementById("chat-box");
-  const typingWrap = document.createElement("div");
-  typingWrap.style.cssText = "display:flex;align-items:flex-start";
-  const typing = document.createElement("div");
-  typing.className = "msg ai";
-  typing.style.opacity = ".6";
-  typing.innerHTML = `<span style="display:flex;gap:5px;align-items:center">${[0,.18,.36].map(d=>`<span style="width:6px;height:6px;background:#60698a;border-radius:50%;display:block;animation:bounce 1.1s ${d}s infinite"></span>`).join("")}</span>`;
-  typingWrap.appendChild(typing);
-  box.appendChild(typingWrap);
-  box.scrollTop = box.scrollHeight;
-
-  try {
-    const res = await fetch(API + "/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text, history: chatHistory.slice(0,-1) }),
-    });
-    if (!res.ok) throw new Error("Server lỗi: " + res.status);
-    const data = await res.json();
-    typingWrap.remove();
-
-    const raw = data.reply || "";
-    const parsed = safeParseJSON(raw);
-    const msgText = parsed?.msg || raw.trim() || "Mình nhận được rồi!";
-
-    appendMsg(msgText, "ai");
-    chatHistory.push({ role: "model", parts: [{ text: raw }] });
-    if (parsed?.db) applyDB(parsed.db);
-
-  } catch (e) {
-    typingWrap.remove();
-    showError(e instanceof TypeError
-      ? "⚠ Không kết nối được server. Server có thể đang khởi động (~30s), thử lại nhé!"
-      : "⚠ " + e.message);
-  } finally {
+  fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:1200, system:SYSTEM, messages:hist})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    var reply = (d.content && d.content[0] && d.content[0].text) || 'Mình chưa hiểu rõ, kể thêm đi bạn!';
+    hist.push({role:'assistant', content:reply});
+    removeDots();
+    appendMsg('ai', fmt(reply), ts());
+    detectFromText(reply.toLowerCase());
+    autoUpdateMatch(text + ' ' + reply);
     busy = false;
-    document.getElementById("send-btn").disabled = false;
-    document.getElementById("chat-input").focus();
+  })
+  .catch(function(){
+    removeDots();
+    appendMsg('ai','⚠️ Lỗi kết nối. Thử lại nhé!', ts());
+    busy = false;
+  });
+}
+
+function qc(t){ $('mi').value = t; sendMsg(); }
+
+$('mi').addEventListener('keydown', function(e){
+  if(e.key==='Enter' && !e.shiftKey){
+    e.preventDefault();
+    var v = this.value.toLowerCase();
+    if(v.includes('quiz') || v.includes('tính cách')){
+      this.value = '';
+      appendMsg('user','Tôi muốn làm quiz tính cách',ts());
+      msgCnt++; updateStats();
+      setTimeout(startQuiz, 400);
+    } else {
+      sendMsg();
+    }
+  }
+});
+
+/* ════════════════════════════════════
+   DETECTION & MATCH
+════════════════════════════════════ */
+function detectFromText(t){
+  var tl = t.toLowerCase();
+  CAREERS.forEach(function(c){
+    if(c.keywords.some(function(k){ return tl.includes(k); })){
+      explored.add(c.id);
+    }
+  });
+  updateStats(); renderExpList();
+  var gapMap = {data:['data','phân tích','python','sql'],web:['lập trình','code','web','javascript'],ai:['ai','machine learning','deep learning'],ux:['thiết kế','design','ux'],fin:['tài chính','finance','đầu tư'],mkt:['marketing','quảng cáo','seo']};
+  for(var id in gapMap){
+    if(gapMap[id].some(function(k){ return tl.includes(k); })){
+      renderSkillGap(id); break;
+    }
   }
 }
 
-// ── Dashboard ────────────────────────────────────────────────────────────────
-function applyDB(db) {
-  if (!db) return;
-  if (db.mood) document.getElementById("d-mood").textContent = db.mood;
-  if (db.fear) document.getElementById("d-fear").textContent = db.fear;
-  if (db.root) document.getElementById("d-root").textContent = db.root;
-  if (db.insight) {
-    const el = document.getElementById("d-insight");
-    el.className = "insight-box";
-    el.textContent = `"${db.insight}"`;
+function autoUpdateMatch(ctx){
+  CAREERS.forEach(function(c){
+    var s = c.baseMatch;
+    c.keywords.forEach(function(k){ if(ctx.toLowerCase().includes(k)) s+=3; });
+    if(explored.has(c.id)) s+=5;
+    matchData[c.id] = Math.min(99, s);
+  });
+  renderMatch();
+  renderExplore();
+}
+
+function renderMatch(){
+  $('match-block').style.display = 'block';
+  var sorted = Object.entries(matchData).sort(function(a,b){ return b[1]-a[1]; });
+  var cols = ['var(--ac)','var(--a3)','var(--a4)','var(--a2)','var(--mu)','var(--mu)'];
+  $('match-list').innerHTML = sorted.map(function(entry, i){
+    var c = CAREERS.find(function(x){ return x.id===entry[0]; });
+    return '<div class="cm-row">'
+      + '<div class="cm-nm">' + c.icon + ' ' + c.name.split(' ').slice(0,2).join(' ') + '</div>'
+      + '<div class="cm-bg"><div class="cm-fill" style="width:'+entry[1]+'%;background:'+cols[i]+'"></div></div>'
+      + '<div class="cm-pct" style="color:'+cols[i]+'">' + entry[1] + '%</div>'
+      + '</div>';
+  }).join('');
+  var top = CAREERS.find(function(c){ return c.id===sorted[0][0]; });
+  $('match-note').innerHTML = '🏆 <strong style="color:var(--ac)">' + top.name + '</strong> phù hợp nhất!';
+}
+
+function renderSkillGap(id){
+  var car = CAREERS.find(function(c){ return c.id===id; });
+  if(!car) return;
+  $('gap-block').style.display = 'block';
+  $('gap-list').innerHTML = car.skills.map(function(s){
+    return '<div class="sg-item">'
+      + '<span style="font-size:13px">' + (s.h?'✅':'❌') + '</span>'
+      + '<span style="flex:1;font-size:11px;font-weight:'+(s.h?600:400)+';color:'+(s.h?'var(--a3)':'var(--tx)')+'">'+s.n+'</span>'
+      + (!s.h ? '<span style="font-size:9px;color:var(--a2)">Cần học</span>' : '')
+      + '</div>';
+  }).join('');
+  var missing = car.skills.filter(function(s){ return !s.h; });
+  $('gap-tip').innerHTML = missing.length
+    ? '💡 Học trước: <strong style="color:var(--a4)">' + missing[0].n + '</strong>'
+    : '🎉 Bạn có đủ nền tảng!';
+}
+
+/* ════════════════════════════════════
+   STATS & JOURNEY
+════════════════════════════════════ */
+function updateStats(){
+  $('st-exp').textContent = explored.size;
+  $('st-msg').textContent = msgCnt;
+  $('st-quiz').textContent = quizDone ? '100%' : Math.round(qCur/QUIZ_Q.length*100)+'%';
+  $('st-ch').textContent = chalCnt;
+  $('mc').textContent = msgCnt + ' tin';
+  var stage = quizDone ? 'Career Match' : qCur>0 ? 'Quiz' : msgCnt>3 ? 'Phân tích' : 'Chat';
+  $('hdr-stage').textContent = stage;
+}
+
+function addJourney(type, label){
+  journeySteps.push({type:type, label:label, time:ts()});
+  var icons = {chat:'💬',quiz:'🧠',challenge:'🧪',match:'🎯',roadmap:'🗺'};
+  $('journey').innerHTML = journeySteps.slice(-5).reverse().map(function(s){
+    return '<div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--bd);font-size:10px;color:var(--mu)">'
+      + '<span>'+(icons[s.type]||'•')+'</span>'
+      + '<span style="flex:1">'+s.label+'</span>'
+      + '<span style="color:var(--di)">'+s.time+'</span></div>';
+  }).join('') || '<div style="font-size:10.5px;color:var(--mu)">Bắt đầu hành trình nhé!</div>';
+}
+
+function renderExpList(){
+  $('exp-list').innerHTML = (explored.size === 0)
+    ? '<div style="font-size:10.5px;color:var(--mu)">Chưa có — bắt đầu chat!</div>'
+    : Array.from(explored).map(function(id){
+        var c = CAREERS.find(function(x){ return x.id===id; });
+        return c ? '<div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--bd)">'
+          + '<span>'+c.icon+'</span><span style="font-size:11px;font-weight:600">'+c.name+'</span></div>' : '';
+      }).join('');
+}
+
+/* ════════════════════════════════════
+   TABS
+════════════════════════════════════ */
+var TABS = ['explore','tryit','roadmap','mentor'];
+function setTab(tab){
+  TABS.forEach(function(t){
+    $('t-'+t).classList.toggle('active', t===tab);
+    $('tc-'+t).style.display = t===tab ? 'block' : 'none';
+  });
+  if(tab==='explore') renderExplore();
+  else if(tab==='tryit') renderTryit();
+  else if(tab==='roadmap') renderRoadmap();
+  else if(tab==='mentor') renderMentor();
+}
+
+/* ════════════════════════════════════
+   TAB: EXPLORE (Nghề + Một ngày + Tương lai)
+════════════════════════════════════ */
+function renderExplore(){
+  var el = $('tc-explore');
+  var sorted = Object.keys(matchData).length
+    ? CAREERS.slice().sort(function(a,b){ return (matchData[b.id]||b.baseMatch)-(matchData[a.id]||a.baseMatch); })
+    : CAREERS;
+  var car = CAREERS.find(function(c){ return c.id===exploreC; }) || sorted[0];
+  var pct = matchData[car.id] || car.baseMatch;
+  var fclrs = ['var(--a2)','var(--ac)','var(--a4)','var(--a3)','var(--mu)','var(--mu)'];
+
+  var pills = sorted.map(function(c){
+    var sel = c.id===exploreC;
+    return '<button onclick="setExploreC(\''+c.id+'\')" style="background:'+(sel?'rgba(124,106,255,.18)':'var(--sf3)')
+      +';border:1px solid '+(sel?'var(--ac)':'var(--bd)')
+      +';border-radius:16px;padding:5px 12px;font-size:10.5px;color:'+(sel?'var(--ac)':'var(--mu)')
+      +';cursor:pointer;font-family:inherit;font-weight:'+(sel?700:400)+';transition:all .18s">'
+      +c.icon+' '+c.name.split(' ').slice(0,2).join(' ')+'</button>';
+  }).join('');
+
+  var dayRows = car.day.map(function(d,i){
+    var hasLine = i < car.day.length-1;
+    return '<div style="display:flex;gap:9px;margin-bottom:'+(hasLine?'9':'0')+'px;position:relative">'
+      + (hasLine ? '<div style="position:absolute;left:20px;top:22px;bottom:-9px;width:1.5px;background:linear-gradient(180deg,var(--a4),transparent)"></div>' : '')
+      + '<div style="font-size:10px;color:var(--a4);font-weight:700;width:42px;flex-shrink:0;padding-top:2px">'+d.t+'</div>'
+      + '<div style="flex:1;background:var(--sf3);border:1px solid var(--bd);border-radius:8px;padding:7px 10px">'
+      + '<div style="font-size:11.5px;font-weight:600">'+d.task+'</div>'
+      + '<div style="font-size:10px;color:var(--mu);margin-top:2px">'+d.desc+'</div></div></div>';
+  }).join('');
+
+  var futRows = car.future.map(function(f){
+    var fc = f.v>90?'var(--a2)':f.v>80?'var(--ac)':f.v>70?'var(--a4)':'var(--a3)';
+    return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">'
+      + '<div style="font-size:10.5px;font-weight:700;color:var(--a4);width:36px;flex-shrink:0">'+f.y+'</div>'
+      + '<div style="flex:1;height:7px;background:var(--bd);border-radius:4px;overflow:hidden">'
+      + '<div style="width:'+f.v+'%;height:100%;background:linear-gradient(90deg,'+fc+','+fc+'99);border-radius:4px;transition:width 1.4s"></div></div>'
+      + '<div style="font-size:9.5px;font-weight:600;color:'+fc+';width:92px;text-align:right">'+f.l+'</div></div>';
+  }).join('');
+
+  el.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">'+pills+'</div>'
+    + '<div style="background:var(--sf2);border:1px solid var(--ac);border-radius:14px;overflow:hidden;box-shadow:0 0 20px rgba(124,106,255,.14)">'
+
+    // Header
+    + '<div style="background:'+car.col+';padding:13px 15px;display:flex;align-items:center;gap:10px">'
+    + '<div style="font-size:26px">'+car.icon+'</div>'
+    + '<div style="flex:1"><div style="font-size:14px;font-weight:800;color:#fff">'+car.name+'</div>'
+    + '<div style="font-size:9px;color:rgba(255,255,255,.7);margin-top:1px;text-transform:uppercase;letter-spacing:.9px">'+car.cat+'</div></div>'
+    + '<div style="text-align:right"><div style="font-size:21px;font-weight:800;color:#fff">'+pct+'%</div>'
+    + '<div style="font-size:9px;color:rgba(255,255,255,.65)">phù hợp</div></div></div>'
+
+    + '<div style="padding:14px;display:flex;flex-direction:column;gap:13px">'
+
+    // Section 1: Giới thiệu
+    + '<div><div style="font-size:8.5px;color:var(--ac);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:7px">📌 Nghề này là gì</div>'
+    + '<div style="font-size:12px;color:var(--mu);line-height:1.7">'+car.desc+'</div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">'
+    + car.tags.map(function(t){ return '<span class="tag">'+t+'</span>'; }).join('')
+    + '<span class="tag y">💰 '+car.salary+'</span><span class="tag g">'+car.demand+'</span></div></div>'
+
+    + '<div style="height:1px;background:var(--bd)"></div>'
+
+    // Section 2: Một ngày
+    + '<div><div style="font-size:8.5px;color:var(--a4);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:10px">📅 Một ngày làm việc</div>'
+    + dayRows
+    + '<button class="btn2" style="margin-top:10px;font-size:10.5px;padding:6px 12px" onclick="qc(\'Phần nào trong ngày làm '+car.name.replace(/'/g,"\\'")+' thú vị nhất?\')">💬 Hỏi mentor</button></div>'
+
+    + '<div style="height:1px;background:var(--bd)"></div>'
+
+    // Section 3: Tương lai
+    + '<div><div style="font-size:8.5px;color:var(--a3);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:10px">📈 Tương lai nghề đến 2030</div>'
+    + futRows
+    + '<div style="margin-top:9px;background:rgba(61,255,168,.06);border:1px solid rgba(61,255,168,.18);border-radius:9px;padding:10px;font-size:11px;color:var(--mu);line-height:1.6">'
+    + '📊 Tăng trưởng dự kiến <strong style="color:var(--a3)">'+car.growth+'%</strong> đến 2030</div></div>'
+
+    + '</div></div>';
+}
+
+function setExploreC(id){
+  exploreC = id; explored.add(id);
+  updateStats(); renderExpList(); renderSkillGap(id); renderExplore();
+}
+
+/* ════════════════════════════════════
+   TAB: TRYIT (Challenge + Thực hành)
+════════════════════════════════════ */
+function renderTryit(){
+  var el = $('tc-tryit');
+  var car = CAREERS.find(function(c){ return c.id===tryitC; }) || CAREERS[2];
+  var ch = car.challenge;
+  tryitDone = false;
+
+  var pills = CAREERS.map(function(c){
+    var sel = c.id===tryitC;
+    return '<button onclick="setTryitC(\''+c.id+'\')" style="background:'+(sel?'rgba(255,95,141,.14)':'var(--sf3)')
+      +';border:1px solid '+(sel?'var(--a2)':'var(--bd)')
+      +';border-radius:16px;padding:5px 12px;font-size:10.5px;color:'+(sel?'var(--a2)':'var(--mu)')
+      +';cursor:pointer;font-family:inherit;font-weight:'+(sel?700:400)+'">'+c.icon+' '+c.name.split(' ').slice(0,2).join(' ')+'</button>';
+  }).join('');
+
+  var opts = ch.opts.map(function(o,i){
+    return '<button class="co" id="tco-'+i+'" onclick="answerTryit('+i+','+ch.correct+',\''+car.id+'\')">'
+      +String.fromCharCode(65+i)+'. '+o+'</button>';
+  }).join('');
+
+  var links = car.practice.map(function(p){
+    return '<div style="display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--bd)">'
+      + '<div style="font-size:20px;flex-shrink:0">'+p.ic+'</div>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:12px;font-weight:700">'+p.n+'</div>'
+      + '<div style="font-size:10px;color:var(--mu);margin-top:2px">'+p.d+'</div></div>'
+      + '<a href="'+p.url+'" target="_blank" style="background:linear-gradient(135deg,var(--ac),var(--a2));border:none;border-radius:6px;padding:6px 12px;font-size:10px;color:#fff;text-decoration:none;font-weight:700;white-space:nowrap">Mở →</a></div>';
+  }).join('');
+
+  el.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">'+pills+'</div>'
+    + '<div style="background:var(--sf2);border:1px solid var(--bd);border-radius:14px;overflow:hidden">'
+
+    // Challenge section
+    + '<div style="background:linear-gradient(135deg,rgba(255,95,141,.1),rgba(124,106,255,.07));border-bottom:1px solid var(--bd);padding:14px">'
+    + '<div style="font-size:8.5px;color:var(--a2);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:10px">🧪 Mini Challenge — '+car.name+'</div>'
+    + '<div style="font-size:12.5px;font-weight:600;margin-bottom:11px;line-height:1.55">'+ch.q.replace(/\n/g,'<br>')+'</div>'
+    + '<div id="tryit-opts">'+opts+'</div>'
+    + '<div id="tryit-result" style="display:none;margin-top:11px;padding:11px;border-radius:9px;font-size:11.5px;line-height:1.65"></div></div>'
+
+    // Practice section
+    + '<div style="padding:14px">'
+    + '<div style="font-size:8.5px;color:var(--a3);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:9px">🚀 Thực hành miễn phí ngay</div>'
+    + '<div style="font-size:11.5px;color:var(--mu);margin-bottom:10px;line-height:1.6">Muốn thử <strong style="color:var(--tx)">'+car.name+'</strong>? Tất cả link dưới đây <strong style="color:var(--a3)">miễn phí hoàn toàn</strong>:</div>'
+    + links
+    + '<button class="btn" style="margin-top:12px;width:100%;padding:10px;font-size:11.5px" onclick="qc(\'Hướng dẫn tôi bắt đầu thử nghề '+car.name.replace(/'/g,"\\'")+'\')">'
+    + '💬 Hỏi mentor hướng dẫn bắt đầu</button></div></div>';
+}
+
+function setTryitC(id){ tryitC = id; renderTryit(); }
+
+function answerTryit(i, correct, carId){
+  if(tryitDone) return;
+  tryitDone = true;
+  var opts = document.querySelectorAll('.co');
+  opts[i].classList.add('sel');
+  if(i===correct){ opts[correct].style.borderColor='var(--a3)'; opts[correct].style.color='var(--a3)'; }
+  var car = CAREERS.find(function(c){ return c.id===carId; });
+  var res = $('tryit-result');
+  res.style.display = 'block';
+  if(i===correct){
+    chalCnt++; updateStats();
+    addJourney('challenge','🧪 '+car.name+' ✅');
+    res.style.background='rgba(61,255,168,.07)'; res.style.border='1px solid rgba(61,255,168,.22)'; res.style.color='var(--a3)';
+    res.innerHTML = '✅ <strong>Chính xác!</strong><br>'+car.challenge.explain
+      +'<br><button class="btn2" style="margin-top:8px;font-size:10.5px;padding:5px 12px" onclick="setTryitC(\''+carId+'\')">Thử lại →</button>';
+  } else {
+    res.style.background='rgba(255,95,141,.07)'; res.style.border='1px solid rgba(255,95,141,.22)'; res.style.color='var(--a2)';
+    res.innerHTML = '❌ <strong>Chưa đúng!</strong><br>'+car.challenge.explain
+      +'<br><button class="btn2" style="margin-top:8px;font-size:10.5px;padding:5px 12px" onclick="setTryitC(\''+carId+'\')">Thử lại →</button>';
   }
-  if (db.values?.length)  renderPills("d-vals", db.values);
-  if (db.work?.length)    renderPills("d-work", db.work);
-  if (db.motive?.length)  renderPills("d-mot",  db.motive);
-
-  setPbar("val",  Math.min(100, (db.values?.length||0)*20  + (db.insight?20:0)));
-  setPbar("work", Math.min(100, (db.work?.length||0)*20    + (db.motive?.length||0)*15));
-  setPbar("mot",  Math.min(100, (db.motive?.length||0)*25));
-
-  if (db.uni?.target) document.getElementById("d-uni-t").textContent = db.uni.target;
-  if (db.uni?.safe)   document.getElementById("d-uni-s").textContent = db.uni.safe;
-  if (db.uni?.backup) document.getElementById("d-uni-b").textContent = db.uni.backup;
-
-  if (db.road?.m3?.length) renderRoad("d-r3", db.road.m3, "#7c6aff");
-  if (db.road?.m6?.length) renderRoad("d-r6", db.road.m6, "#ffbe3d");
-  if (db.road?.y1?.length) renderRoad("d-r1", db.road.y1, "#3dffa8");
 }
 
-function renderPills(id, items) {
-  document.getElementById(id).innerHTML = items.map(({l,v}) =>
-    `<span class="pill pill-${v||'low'}">${l}</span>`).join("");
-}
-function setPbar(key, pct) {
-  document.getElementById("fill-"+key).style.width = pct + "%";
-  document.getElementById("pct-"+key).textContent = pct + "%";
-}
-function renderRoad(id, items, color) {
-  document.getElementById(id).innerHTML = items.map(t =>
-    `<div class="road-item" style="color:#e2e6f3">${t}</div>`).join("");
+/* ════════════════════════════════════
+   TAB: ROADMAP
+════════════════════════════════════ */
+function renderRoadmap(){
+  var el = $('tc-roadmap');
+  var car = CAREERS.find(function(c){ return c.id===roadmapC; }) || CAREERS[4];
+
+  var pills = CAREERS.map(function(c){
+    var sel = c.id===roadmapC;
+    return '<button onclick="setRoadmapC(\''+c.id+'\')" style="background:'+(sel?'rgba(124,106,255,.15)':'var(--sf3)')
+      +';border:1px solid '+(sel?'var(--ac)':'var(--bd)')
+      +';border-radius:16px;padding:5px 12px;font-size:10.5px;color:'+(sel?'var(--ac)':'var(--mu)')
+      +';cursor:pointer;font-family:inherit;font-weight:'+(sel?700:400)+'">'+c.icon+' '+c.name.split(' ').slice(0,2).join(' ')+'</button>';
+  }).join('');
+
+  var steps = car.roadmap.map(function(r,i){
+    var hasLine = i < car.roadmap.length-1;
+    return '<div class="rs">'
+      + (hasLine ? '<div class="rline"></div>' : '')
+      + '<div class="rn" style="background:'+r.c+';color:#000">'+(i+1)+'</div>'
+      + '<div class="rb"><div style="font-size:11.5px;font-weight:600">'+r.n+'</div>'
+      + '<div style="font-size:10px;color:var(--mu);margin-top:2px">'+r.d+'</div></div></div>';
+  }).join('');
+
+  el.innerHTML = '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">'+pills+'</div>'
+    + '<div style="background:var(--sf2);border:1px solid var(--bd);border-radius:14px;padding:14px">'
+    + '<div style="font-size:8.5px;color:var(--ac);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:13px">🗺 Lộ trình → '+car.name+'</div>'
+    + steps + '</div>'
+    + '<div style="margin-top:10px;background:rgba(255,190,61,.07);border:1px solid rgba(255,190,61,.2);border-radius:10px;padding:11px;font-size:11.5px;line-height:1.6">'
+    + '💡 Muốn kế hoạch cá nhân hóa?'
+    + ' <button class="btn" style="padding:5px 12px;font-size:10.5px" onclick="qc(\'Tạo lộ trình 5 năm cho tôi trở thành '+car.name.replace(/'/g,"\\'")+'\')">'
+    + 'Hỏi Mentor AI →</button></div>';
 }
 
-function resetChat() {
-  chatHistory = []; welcomeShown = true;
-  document.getElementById("chat-box").innerHTML = `
-    <div id="welcome" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center">
-      <div style="font-size:36px">👋</div>
-      <div style="font-size:18px;font-weight:800;background:linear-gradient(135deg,#b0a4ff,#ff90b8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Xin chào! Mình là Mentor AI</div>
-      <div style="font-size:12.5px;color:#60698a;line-height:1.75">Không phán xét · Không sáo rỗng<br/>Chỉ lắng nghe và đồng hành cùng bạn 🤝</div>
-    </div>`;
+function setRoadmapC(id){ roadmapC = id; renderRoadmap(); }
+
+/* ════════════════════════════════════
+   TAB: MENTOR
+════════════════════════════════════ */
+function renderMentor(){
+  var el = $('tc-mentor');
+  el.innerHTML = '<div style="background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(255,95,141,.07));border:1px solid rgba(124,106,255,.25);border-radius:12px;padding:14px;margin-bottom:12px;text-align:center">'
+    + '<div style="font-size:24px;margin-bottom:6px">🧑‍🚀</div>'
+    + '<div style="font-size:13.5px;font-weight:700;margin-bottom:5px">AI Mentor Mode</div>'
+    + '<div style="font-size:11px;color:var(--mu);line-height:1.6">Mentor đặt câu hỏi sâu để hiểu bạn thật sự muốn gì — không phải nghề chung chung mà là nghề phù hợp <em>bạn</em></div></div>'
+    + '<div style="font-size:8.5px;color:var(--mu);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:9px;font-weight:700">💡 Câu hỏi gợi mở nghề nghiệp</div>'
+    + MENTOR_QS.map(function(q,i){
+        return '<div class="mq" onclick="qc(\''+q.replace(/'/g,"\\'")+'\')"><span style="color:var(--a4);font-weight:700;margin-right:7px">'+(i+1)+'.</span>'+q+'</div>';
+      }).join('')
+    + '<div style="margin-top:11px;background:rgba(255,190,61,.07);border:1px solid rgba(255,190,61,.2);border-radius:10px;padding:12px;font-size:11px;line-height:1.7;color:var(--mu)">'
+    + '✨ <strong style="color:var(--a4)">Cách hoạt động:</strong> Mentor phân tích câu trả lời → suy ra giá trị sống → map sang nhóm nghề → đề xuất lộ trình cụ thể.</div>';
 }
+
+/* ════════════════════════════════════
+   QUIZ IN CHAT
+════════════════════════════════════ */
+function startQuiz(){
+  quizAs = []; qCur = 0; quizDone = false;
+  addJourney('quiz','🧠 Bắt đầu quiz tính cách');
+  showQuizQ();
+}
+
+function showQuizQ(){
+  var q = QUIZ_Q[qCur];
+  var opts = q.opts.map(function(o,i){
+    return '<button class="qo" onclick="quizAnswer('+i+')">'
+      + String.fromCharCode(65+i)+'. '+o+'</button>';
+  }).join('');
+  appendMsg('ai',
+    '<div style="font-size:9px;color:var(--ac);font-weight:700;margin-bottom:8px;letter-spacing:1px">🧠 CÂU '+(qCur+1)+'/'+QUIZ_Q.length+'</div>'
+    + '<div style="height:4px;background:var(--bd);border-radius:2px;margin-bottom:10px;overflow:hidden">'
+    + '<div style="width:'+Math.round(qCur/QUIZ_Q.length*100)+'%;height:100%;background:linear-gradient(90deg,var(--ac),var(--a2));border-radius:2px"></div></div>'
+    + '<strong>'+q.q+'</strong><br><br>' + opts, ts());
+}
+
+function quizAnswer(i){
+  quizAs.push(i); qCur++;
+  updateStats();
+  if(qCur >= QUIZ_Q.length){ finishQuiz(); return; }
+  showQuizQ();
+}
+
+function finishQuiz(){
+  quizDone = true;
+  var tally = [0,0,0,0];
+  quizAs.forEach(function(a){ tally[a]++; });
+  var types = [
+    {type:'🎨 Sáng tạo & Thiết kế', ids:['ux','mkt'], desc:'Tư duy trực quan, nhạy cảm thẩm mỹ, giàu ý tưởng sáng tạo'},
+    {type:'📊 Phân tích & Tài chính', ids:['data','fin'], desc:'Tư duy logic, yêu con số và tìm quy luật trong dữ liệu'},
+    {type:'📣 Giao tiếp & Kinh doanh', ids:['mkt','web'], desc:'Hướng ngoại, giỏi thuyết phục và xây dựng kết nối'},
+    {type:'💻 Công nghệ & Kỹ thuật', ids:['web','ai','data'], desc:'Kiên nhẫn, thích giải quyết vấn đề kỹ thuật phức tạp'},
+  ];
+  var topIdx = tally.indexOf(Math.max.apply(null, tally));
+  var res = types[topIdx];
+  res.ids.forEach(function(id){
+    matchData[id] = Math.min(99, (matchData[id] || CAREERS.find(function(c){ return c.id===id; }).baseMatch) + 12);
+  });
+  renderMatch(); renderExplore();
+  addJourney('match','🎯 Career Match cập nhật!');
+  appendMsg('ai',
+    '<strong>🎉 Kết quả phân tích tính cách của bạn:</strong><br><br>'
+    + '<strong style="color:var(--ac);font-size:14px">'+res.type+'</strong><br><br>'
+    + res.desc + '<br><br>'
+    + 'Nghề phù hợp nhất: ' + res.ids.map(function(id){
+        var c = CAREERS.find(function(x){ return x.id===id; });
+        return '<strong>'+c.icon+' '+c.name+'</strong>';
+      }).join(', ')
+    + '<br><br>✅ Mình đã cập nhật <strong>AI Career Match</strong> bên sidebar và sắp xếp lại tab Khám phá theo độ phù hợp của bạn!<br><br>Bạn muốn tìm hiểu sâu hơn về nghề nào?', ts());
+  updateStats();
+}
+
+/* ════════════════════════════════════
+   INIT
+════════════════════════════════════ */
+appendMsg('ai',
+  'Chào bạn! 👋 Mình là <strong>Mentor AI</strong> — không chỉ tư vấn mà còn giúp bạn <strong>thử nghề thật, làm challenge, xem lộ trình cụ thể</strong>!<br><br>'
+  + 'Khi bạn hỏi về bất kỳ nghề nào, mình sẽ trả lời đủ:<br>'
+  + '📌 Nghề là gì &nbsp;·&nbsp; 🕒 Một ngày làm việc &nbsp;·&nbsp; 🚀 Thử miễn phí<br>'
+  + '🧪 Mini Challenge &nbsp;·&nbsp; 🧭 Lộ trình học &nbsp;·&nbsp; 📈 Tương lai 2030<br><br>'
+  + 'Bắt đầu bằng <strong>Quiz tính cách</strong> hoặc hỏi thẳng về nghề bạn muốn nhé! 🎯', ts());
+
+setTab('explore');
+updateStats();
+renderExpList();
 </script>
 </body>
 </html>
